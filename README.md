@@ -181,5 +181,3 @@ Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
   DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/dbname"
   ACCESS_TOKEN_SECRET=your_access_token_secret
   REFRESH_TOKEN_SECRET=your_refresh_token_secret
-````
-
