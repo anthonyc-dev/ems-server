@@ -5,7 +5,6 @@ This template supports modern authentication flows with **access/refresh tokens*
 
 ---
 
-```
 ## 📂 Project Structure
 auth-templete/
 ├── controllers/        # Logic for auth endpoints (login, register, etc.)
@@ -42,7 +41,7 @@ auth-templete/
 - **bcryptjs**
 - **cookie-parser**
 - **dotenv**
-```
+
 
 ## ⚙️ Getting Started
 
