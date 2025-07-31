@@ -20,7 +20,7 @@ auth-templete/
 ├── package.json
 └── tsconfig.json
 
-````
+
 
 ## 🚀 Features
 
@@ -33,8 +33,6 @@ auth-templete/
 - 🌐 CORS & Cookie Management Configured for Web Clients
 - 🛡️ Written in Modern TypeScript
 
-```
-
 ## 🛠 Tech Stack
 
 - **Node.js** + **Express.js**
@@ -45,8 +43,6 @@ auth-templete/
 - **bcryptjs**
 - **cookie-parser**
 - **dotenv**
-
-```
 
 
 ## ⚙️ Getting Started
@@ -148,27 +144,6 @@ Update your model in `prisma/schema.prisma`.
 
 ---
 
-## 🔑 Role-Based Access Example
-
-### Middleware: `requireRole('admin')`
-
-```ts
-const requireRole = (role: string) => (req, res, next) => {
-  if (req.user?.role !== role) return res.sendStatus(403);
-  next();
-};
-```
-
-### Route:
-
-```ts
-app.get("/api/admin", verifyToken, requireRole("admin"), (req, res) => {
-  res.json({ message: "Welcome Admin!" });
-});
-```
-
----
-
 ## 🔄 Token Refresh (HttpOnly Cookies)
 
 * Refresh token is stored securely as a `HttpOnly` cookie.
@@ -198,10 +173,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
 
-````
-
----
-
 ### ✅ Bonus Files You Should Add:
 
 - `.env.example`  
@@ -212,15 +183,3 @@ Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
   REFRESH_TOKEN_SECRET=your_refresh_token_secret
 ````
 
-* Sample `prisma/schema.prisma`
-  (if not already committed)
-
----
-
-Would you like me to:
-
-* Push this to your GitHub repo as a PR?
-* Add badges (build, license, etc.) to the top?
-* Generate OpenAPI (Swagger) docs for your API?
-
-Let me know!
