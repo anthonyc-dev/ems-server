@@ -5,7 +5,7 @@
 A secure and production-ready backend template for authentication using **Node.js**, **Express**, **Prisma**, and **JWT**.  
 Supports **access & refresh token** flow, **role-based authorization**, and **protected routes**.
 
----
+
 
 ## 📁 Project Structure
 auth-templete/
@@ -21,9 +21,7 @@ auth-templete/
 ├── package.json
 └── tsconfig.json
 
-````
 
----
 
 ## 🚀 Features
 
@@ -36,7 +34,6 @@ auth-templete/
 - 🌐 **HttpOnly cookie** for refresh token
 - 🛡️ Secure token storage and user sessions
 
----
 
 ## 🔧 Tech Stack
 
@@ -197,8 +194,6 @@ Made by [@HardUsername-123](https://github.com/HardUsername-123)
 
 ```
 
----
-
 ### ✅ Bonus Suggestions:
 If you want, I can also:
 - Generate the `.env.example` file
@@ -206,4 +201,3 @@ If you want, I can also:
 - Push the `README.md` to your repo with a PR
 
 Would you like any of those?
-```
