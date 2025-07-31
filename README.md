@@ -108,8 +108,6 @@ Server will run at `http://localhost:your_port`
 
 ---
 
----
-
 ## 📫 API Testing with `request.rest`
 
 This project includes a [`request.rest`](./request.rest) file to make API testing quick and simple using the **REST Client** extension in VS Code.
@@ -137,19 +135,48 @@ This project includes a [`request.rest`](./request.rest) file to make API testin
 ### 🔧 Sample Endpoints
 
 ```http
-### Register
+###Register
 POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-  "studentId": "22222",
-  "firstName": "hamdan",
-  "lastName": "Cawasa",
-  "email": "cawasa1@gmail.com",
-  "phoneNumber": "1234567890",
-  "password": "Cawasa@123",
-  "role": "admin"
+    "studentId": "22222",
+    "firstName": "hamdan",
+    "lastName": "Cawasa",
+    "email": "cawasa1@gmail.com",
+    "phoneNumber": "1234567890",
+    "password": "Cawasa@123",
+    "role": "admin"
 }
+
+###Login
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "email": "anthony.dev@gmail.com",
+    "password": "Anthony@123"
+}
+
+###Log out
+POST http://localhost:8080/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjExNzM5NiwiZXhwIjoxNzUyMTE3NDExfQ.MLMJ4QXM5sHmgBMLTXxgHYxn1oKAhvL4p_u2pccQd04
+
+###Access Token
+GET http://localhost:8080/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjEwODAwMCwiZXhwIjoxNzUyMTA4MDE1fQ.jpA4NlNlA0tiSZucMmo5MvGmzEacbHOMYkMjyNjABaE
+
+###Refresh Token
+POST http://localhost:8080/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJpYXQiOjE3NTIxMTI3NTgsImV4cCI6MTc1MjcxNzU1OH0.aLbph0fsPvIywj3qHR8MP1V27O0IybO8inSSoSBl6kA"
+}
+
+###Profile
+GET http://localhost:8080/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjExMjc3OSwiZXhwIjoxNzUyMTEyNzk0fQ.q_XNviqj0PZlyBR7m7aoS4t3ceBavQqJGB049C_yTWw
 ```
 
 ---
