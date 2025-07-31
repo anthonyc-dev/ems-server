@@ -236,8 +236,6 @@ POST /auth/logout
 
 ---
 
----
-
 ## 👨‍💻 Author
 
 Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
