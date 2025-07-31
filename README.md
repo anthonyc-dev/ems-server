@@ -20,7 +20,6 @@ auth-templete/
 ├── package.json
 └── tsconfig.json
 
-```
 
 ## 🚀 Features
 
@@ -43,7 +42,7 @@ auth-templete/
 - **bcryptjs**
 - **cookie-parser**
 - **dotenv**
-
+```
 
 ## ⚙️ Getting Started
 
