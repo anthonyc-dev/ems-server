@@ -1,12 +1,12 @@
-# 🔐 Node.js Authentication Template (Express + Prisma + JWT)
+# 🔐 Token Based Authentecation Template (Express + Prisma + JWT)
 
 A robust and secure authentication backend built with **Node.js**, **Express**, **Prisma**, and **JWT**.  
 This template supports modern authentication flows with **access/refresh tokens**, **role-based authorization**, and **secure session handling** via cookies.
 
 ---
 
+---
 ## 📂 Project Structure
-
 auth-templete/
 ├── controllers/        # Logic for auth endpoints (login, register, etc.)
 ├── middlewares/        # JWT verification and role-based protection
@@ -20,7 +20,7 @@ auth-templete/
 ├── package.json
 └── tsconfig.json
 
-
+---
 
 ## 🚀 Features
 
