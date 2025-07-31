@@ -25,7 +25,6 @@ auth-templete/
 ## 🚀 Features
 
 - 🔑 JWT Authentication (Access & Refresh Tokens)
-- 🧠 Role-based Access Control (`user`, `admin`, etc.)
 - 🔐 Protected Routes
 - 🔄 Secure Token Refresh with `HttpOnly` cookies
 - 🔓 Logout with Refresh Token Revocation
