@@ -1,5 +1,3 @@
-
-
 ```md
 # 🔐 Node.js Auth Template (Express + Prisma + JWT)
 
@@ -9,8 +7,6 @@ Supports **access & refresh token** flow, **role-based authorization**, and **pr
 ---
 
 ## 📁 Project Structure
-
-```
 
 auth-templete/
 ├── controllers/        # Login, Register, Refresh, Logout logic
@@ -26,8 +22,6 @@ auth-templete/
 └── tsconfig.json
 
 ````
-
----
 
 ## 🚀 Features
 
