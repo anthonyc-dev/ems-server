@@ -238,4 +238,4 @@ POST /auth/logout
 
 ## 👨‍💻 Author
 
-Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
+Built with ❤️ by [anthonyc-dev](https://github.com/anthonyc-dev)
