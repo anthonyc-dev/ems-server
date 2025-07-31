@@ -130,8 +130,6 @@ This project includes a [`request.rest`](./request.rest) file to make API testin
 4. **Click "Send Request"**
    Hover over any `###` request header and click `Send Request`. You'll get the response right inside VS Code.
 
----
-
 ### 🔧 Sample Endpoints
 
 ```http
