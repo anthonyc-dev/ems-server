@@ -1,4 +1,4 @@
-# 🔐 Token Based Authentecation Template (Express + Prisma + JWT)
+# 🔐 Token Based Authentecation Template API (Express + Prisma + JWT)
 
 A robust and secure authentication backend built with **Node.js**, **Express**, **Prisma**, and **JWT**.  
 This template supports modern authentication flows with **access/refresh tokens**, **role-based authorization**, and **secure session handling** via cookies.
@@ -16,7 +16,8 @@ auth-templete/
 ├── routes/             # All route definitions
 ├── utils/              # Token generation and helper functions
 ├── .env                # Environment variables
-├── server.ts           # Express app entry point
+├── app.ts              # Express app entry point
+├── index.ts            # Run server in application
 ├── package.json
 └── tsconfig.jsonn
 ```
@@ -37,7 +38,7 @@ auth-templete/
 - **Node.js** + **Express.js**
 - **Prisma** ORM
 - **TypeScript**
-- **PostgreSQL** (or other databases supported by Prisma)
+- **MongoDB Atlas** (or other databases supported by Prisma)
 - **JWT** (`jsonwebtoken`)
 - **bcryptjs**
 - **cookie-parser**
@@ -66,13 +67,12 @@ npm install
 ### 3. Create `.env` File
 
 ```env
-PORT=5000
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/yourdb"
-ACCESS_TOKEN_SECRET=your_access_token_secret
-REFRESH_TOKEN_SECRET=your_refresh_token_secret
+DATABASE_URI=your_mongodb_uri_here
+JWT_SECRET=your_jwt_secret_here
+JWT_REFRESH_SECRET=your_refresh_secret_here
+NODE_ENV=development or production
+PORT=your_port
 ```
-
-Update your `DATABASE_URL` with valid credentials.
 
 ---
 
@@ -93,19 +93,19 @@ npx prisma generate
 npm run dev
 ```
 
-Server will run at `http://localhost:5000`
+Server will run at `http://localhost:your_port`
 
 ---
 
 ## 📬 API Endpoints
 
-| Method | Endpoint                  | Description                      |
-| ------ | ------------------------- | -------------------------------- |
-| POST   | `/api/auth/register`      | Register a new user              |
-| POST   | `/api/auth/login`         | Authenticate user, return tokens |
-| POST   | `/api/auth/refresh-token` | Refresh access token via cookie  |
-| POST   | `/api/auth/logout`        | Invalidate refresh token         |
-| GET    | `/api/protected`          | Protected route (requires token) |
+| Method | Endpoint              | Description                      |
+| -------|-----------------------|----------------------------------|
+| POST   | `/auth/register`      | Register a new user              |
+| POST   | `/auth/login`         | Authenticate user, return tokens |
+| POST   | `/auth/refresh-token` | Refresh access token via cookie  |
+| POST   | `/auth/logout`        | Invalidate refresh token         |
+| GET    | `/auth/getProfile`    | Get Profile (requires token)     |
 
 ---
 
@@ -114,7 +114,7 @@ Server will run at `http://localhost:5000`
 1. **Login** via `/auth/login`
 
    * Server issues `accessToken` and sets `refreshToken` in `HttpOnly` cookie.
-2. **Access protected routes** by passing:
+2. **Access getProfile routes** by passing:
 
    ```http
    Authorization: Bearer <accessToken>
@@ -129,17 +129,21 @@ Server will run at `http://localhost:5000`
 ## 🧠 Prisma Model Example
 
 ```prisma
-model User {
-  id        String   @id @default(uuid())
-  username  String
+model AuthenticatedUser {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId String   @unique
+  firstName String
+  lastName  String
   email     String   @unique
+  phoneNumber String
   password  String
-  role      String   @default("user")
+  role      String
+  refreshToken String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 ```
 
-Update your model in `prisma/schema.prisma`.
 
 ---
 
@@ -154,7 +158,7 @@ Update your model in `prisma/schema.prisma`.
 ## 🔓 Logout
 
 ```http
-POST /api/auth/logout
+POST /auth/logout
 ```
 
 * Clears the cookie
@@ -171,12 +175,3 @@ This project is licensed under the [MIT License](LICENSE).
 ## 👨‍💻 Author
 
 Built with ❤️ by [@HardUsername-123](https://github.com/HardUsername-123)
-
-### ✅ Bonus Files You Should Add:
-
-- `.env.example`  
-  ```env
-  PORT=5000
-  DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/dbname"
-  ACCESS_TOKEN_SECRET=your_access_token_secret
-  REFRESH_TOKEN_SECRET=your_refresh_token_secret
