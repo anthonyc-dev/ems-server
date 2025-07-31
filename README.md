@@ -108,6 +108,52 @@ Server will run at `http://localhost:your_port`
 
 ---
 
+---
+
+## 📫 API Testing with `request.rest`
+
+This project includes a [`request.rest`](./request.rest) file to make API testing quick and simple using the **REST Client** extension in VS Code.
+
+### ✅ Setup
+
+1. **Install REST Client Extension**
+   In VS Code, install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension.
+
+2. **Start Your Server**
+   Make sure your server is running:
+
+   ```bash
+   npm run dev
+   ```
+
+3. **Open `request.rest` File**
+   Located at the root of this project.
+
+4. **Click "Send Request"**
+   Hover over any `###` request header and click `Send Request`. You'll get the response right inside VS Code.
+
+---
+
+### 🔧 Sample Endpoints
+
+```http
+### Register
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "studentId": "22222",
+  "firstName": "hamdan",
+  "lastName": "Cawasa",
+  "email": "cawasa1@gmail.com",
+  "phoneNumber": "1234567890",
+  "password": "Cawasa@123",
+  "role": "admin"
+}
+```
+
+---
+
 ## 🔐 Authentication Flow
 
 1. **Login** via `/auth/login`
