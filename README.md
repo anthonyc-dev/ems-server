@@ -6,6 +6,7 @@ This template supports modern authentication flows with **access/refresh tokens*
 ---
 
 ## 📂 Project Structure
+```text
 auth-templete/
 ├── controllers/        # Logic for auth endpoints (login, register, etc.)
 ├── middlewares/        # JWT verification and role-based protection
@@ -17,8 +18,8 @@ auth-templete/
 ├── .env                # Environment variables
 ├── server.ts           # Express app entry point
 ├── package.json
-└── tsconfig.json
-
+└── tsconfig.jsonn
+```
 
 ## 🚀 Features
 
