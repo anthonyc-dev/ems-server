@@ -1,10 +1,7 @@
-```md
 # 🔐 Node.js Auth Template (Express + Prisma + JWT)
 
 A secure and production-ready backend template for authentication using **Node.js**, **Express**, **Prisma**, and **JWT**.  
 Supports **access & refresh token** flow, **role-based authorization**, and **protected routes**.
-
----
 
 ## 📁 Project Structure
 
