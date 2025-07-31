@@ -1,10 +1,3 @@
-Great! Since you're also using **Prisma** as your ORM instead of Mongoose, here's an updated and **fully tailored `README.md`** for your **Node.js + Express + Prisma + JWT Auth backend** at:
-
-📌 **Repo:** [https://github.com/HardUsername-123/auth-templete](https://github.com/HardUsername-123/auth-templete)
-
----
-
-### ✅ Final `README.md`
 
 ```md
 # 🔐 Node.js Auth Template (Express + Prisma + JWT)
@@ -15,9 +8,6 @@ Supports **access & refresh token** flow, **role-based authorization**, and **pr
 ---
 
 ## 📁 Project Structure
-
-```
-
 auth-templete/
 ├── controllers/        # Login, Register, Refresh, Logout logic
 ├── middlewares/        # JWT Auth middleware, role checks
