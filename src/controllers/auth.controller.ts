@@ -128,7 +128,7 @@ export const login = async (req: Request, res: Response) => {
     const refreshToken = jwt.sign(
       { userId: user.id },
       process.env.JWT_REFRESH_SECRET!,
-      { expiresIn: "10s" }
+      { expiresIn: "1d" }
     );
 
     // Store refresh token in database
@@ -143,7 +143,8 @@ export const login = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       path: "/",
-      maxAge: 10 * 1000, // 10 seconds
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      // maxAge: 10 * 1000, // 10 seconds
     });
 
     res.status(200).json({
@@ -250,7 +251,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     const newRefreshToken = jwt.sign(
       { userId: user.id },
       process.env.JWT_REFRESH_SECRET!,
-      { expiresIn: "10s" }
+      { expiresIn: "1d" }
     );
 
     // Store new refresh token in database (replace old one)
@@ -265,8 +266,8 @@ export const refreshToken = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       path: "/",
-      // maxAge: 24 * 60 * 60 * 1000, // 1 day
-      maxAge: 10 * 1000, // 10 seconds
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      // maxAge: 10 * 1000, // 10 seconds
     });
 
     res.status(200).json({
