@@ -59,7 +59,7 @@ export const register = async (req: Request, res: Response) => {
     const refreshToken = jwt.sign(
       { userId: newUser.id },
       process.env.JWT_REFRESH_SECRET!,
-      { expiresIn: "7d" }
+      { expiresIn: "1d" }
     );
 
     // Store refresh token in database
@@ -74,7 +74,7 @@ export const register = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     res.status(201).json({
