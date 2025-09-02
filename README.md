@@ -6,6 +6,7 @@ This template supports modern authentication flows with **access/refresh tokens*
 ---
 
 ## 📂 Project Structure
+
 ```text
 auth-templete/
 ├── controllers/        # Logic for auth endpoints (login, register, etc.)
@@ -43,7 +44,6 @@ auth-templete/
 - **cookie-parser**
 - **dotenv**
 
-
 ## ⚙️ Getting Started
 
 ### 1. Clone the Repository
@@ -51,7 +51,7 @@ auth-templete/
 ```bash
 git clone https://github.com/HardUsername-123/auth-templete.git
 cd auth-templete
-````
+```
 
 ---
 
@@ -99,7 +99,7 @@ Server will run at `http://localhost:your_port`
 ## 📬 API Endpoints
 
 | Method | Endpoint              | Description                      |
-| -------|-----------------------|----------------------------------|
+| ------ | --------------------- | -------------------------------- |
 | POST   | `/auth/register`      | Register a new user              |
 | POST   | `/auth/login`         | Authenticate user, return tokens |
 | POST   | `/auth/refresh-token` | Refresh access token via cookie  |
@@ -183,15 +183,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmM
 
 1. **Login** via `/auth/login`
 
-   * Server issues `accessToken` and sets `refreshToken` in `HttpOnly` cookie.
+   - Server issues `accessToken` and sets `refreshToken` in `HttpOnly` cookie.
+
 2. **Access getProfile routes** by passing:
 
    ```http
    Authorization: Bearer <accessToken>
    ```
+
 3. When the access token expires:
 
-   * Client silently sends request to `/auth/refresh-token` to obtain a new one.
+   - Client silently sends request to `/auth/refresh-token` to obtain a new one.
+
 4. **Logout** by calling `/auth/logout`, which clears the cookie.
 
 ---
@@ -214,14 +217,13 @@ model AuthenticatedUser {
 }
 ```
 
-
 ---
 
 ## 🔄 Token Refresh (HttpOnly Cookies)
 
-* Refresh token is stored securely as a `HttpOnly` cookie.
-* Automatically included by the browser in requests.
-* Refresh endpoint issues a new `accessToken`.
+- Refresh token is stored securely as a `HttpOnly` cookie.
+- Automatically included by the browser in requests.
+- Refresh endpoint issues a new `accessToken`.
 
 ---
 
@@ -231,11 +233,17 @@ model AuthenticatedUser {
 POST /auth/logout
 ```
 
-* Clears the cookie
-* Invalidates the session
+- Clears the cookie
+- Invalidates the session
 
 ---
 
 ## 👨‍💻 Author
 
 Built with ❤️ by [anthonyc-dev](https://github.com/anthonyc-dev)
+
+---
+
+## Credits
+
+- Developed by **[Anthony Crausus](https://github.com/anthonyc-dev)**
