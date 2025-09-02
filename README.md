@@ -239,3 +239,7 @@ POST /auth/logout
 ## 👨‍💻 Author
 
 Built with ❤️ by [anthonyc-dev](https://github.com/anthonyc-dev)
+
+---
+## Credits
+- Developed by **[Anthony Crausus](https://github.com/anthonyc-dev)**
