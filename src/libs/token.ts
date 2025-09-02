@@ -1,0 +1,37 @@
+import jwt, { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
+
+// ---- Cookie Options
+export const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV !== "development",
+  sameSite: "strict" as const,
+  path: "/",
+  maxAge: 15 * 1000,
+};
+
+// ---- Access Token
+export function signAccessToken(user: {
+  id: string;
+  email: string;
+  role: string;
+}) {
+  return jwt.sign(
+    { userId: user.id, email: user.email, role: user.role },
+    process.env.JWT_SECRET!,
+    { expiresIn: "10s" }
+  );
+}
+
+// ---- Refresh Token
+export function signRefreshToken(userId: string) {
+  return jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET!, {
+    expiresIn: "15s",
+  });
+}
+
+// ---- error handling
+export function tokenErrStatus(err: unknown): number {
+  if (err instanceof TokenExpiredError) return 401;
+  if (err instanceof JsonWebTokenError) return 403;
+  return 403;
+}
