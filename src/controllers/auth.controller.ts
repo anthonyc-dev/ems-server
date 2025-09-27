@@ -8,6 +8,7 @@ import {
   signRefreshToken,
   tokenErrStatus,
 } from "../libs/token";
+import { LoginRequest, RegisterRequest } from "../types/type";
 
 const prisma = new PrismaClient();
 
@@ -22,15 +23,7 @@ export const register = async (req: Request, res: Response) => {
       phoneNumber,
       password,
       role,
-    } = req.body as {
-      studentId: string;
-      firstName: string;
-      lastName: string;
-      email: string;
-      phoneNumber: string;
-      password: string;
-      role: string;
-    };
+    }: RegisterRequest = req.body;
 
     const existing = await prisma.authenticatedUser.findUnique({
       where: { email },
@@ -90,7 +83,7 @@ export const register = async (req: Request, res: Response) => {
 // ---- Login
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body as { email: string; password: string };
+    const { email, password }: LoginRequest = req.body;
 
     const user = await prisma.authenticatedUser.findUnique({
       where: { email },

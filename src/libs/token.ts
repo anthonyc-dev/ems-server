@@ -6,7 +6,7 @@ export const cookieOptions = {
   secure: process.env.NODE_ENV !== "development",
   sameSite: "strict" as const,
   path: "/",
-  maxAge: 15 * 1000,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
 // ---- Access Token
@@ -18,14 +18,14 @@ export function signAccessToken(user: {
   return jwt.sign(
     { userId: user.id, email: user.email, role: user.role },
     process.env.JWT_SECRET!,
-    { expiresIn: "10s" }
+    { expiresIn: "15m" }
   );
 }
 
 // ---- Refresh Token
 export function signRefreshToken(userId: string) {
   return jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET!, {
-    expiresIn: "15s",
+    expiresIn: "7d",
   });
 }
 

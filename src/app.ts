@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import authRoutes from "./routes/auth.route";
+import qrCodeRoutes from "./routes/qrCode.route";
 
 const app: Application = express();
 
@@ -24,5 +25,6 @@ app.get("/", (_req: Request, res: Response): void => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/qr-code", qrCodeRoutes);
 
 export default app;

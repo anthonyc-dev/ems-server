@@ -26,4 +26,16 @@ model AuthenticatedUser {
   refreshToken String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  permits   Permit[]
+}
+
+model Permit {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  permitCode String   @unique
+  expiresAt  DateTime
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  user       AuthenticatedUser @relation(fields: [userId], references: [id])
+  @@map("permits")
 }
