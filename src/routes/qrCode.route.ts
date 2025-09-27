@@ -1,12 +1,16 @@
 import { Router } from "express";
 
-import qrCodeRoutes from "../controllers/qrCode.controller";
+import {
+  generateQR,
+  viewPermit,
+  revokePermit,
+} from "../controllers/qrCode.controller";
 
 const router = Router();
 
 // QR Code routes
-router.get("/generate-qr/:permitId", qrCodeRoutes.generateQR);
-router.post("/view-permit", qrCodeRoutes.viewPermit);
-router.post("/revoke/:permitId", qrCodeRoutes.revokePermit);
+router.post("/generate-qr/:userId", generateQR);
+router.post("/view-permit", viewPermit);
+router.post("/revoke-permit/:permitId", revokePermit);
 
 export default router;
