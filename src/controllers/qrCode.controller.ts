@@ -9,6 +9,7 @@ import QRCode from "qrcode";
 
 const prisma = new PrismaClient();
 const SECRET = process.env.JWT_SECRET || "super_secret";
+const FRONTEND_URL = process.env.FRONT_END_URL!;
 
 // Shape of JWT payload
 interface PermitTokenPayload extends JwtPayload {
@@ -56,8 +57,14 @@ export const generateQR = async (
       { expiresIn: "30d" }
     );
 
-    // Generate QR image from token
-    const qrImage = await QRCode.toDataURL(token);
+    // // Generate QR image from token
+    // const qrImage = await QRCode.toDataURL(token);
+
+    // 👇 Instead of encoding token, we encode a frontend URL with token query param
+    const qrUrl = `${FRONTEND_URL}/viewPermit/?token=${token}`;
+
+    // Generate QR image for that URL
+    const qrImage = await QRCode.toDataURL(qrUrl);
 
     res.json({
       message: "Permit signed & QR generated",

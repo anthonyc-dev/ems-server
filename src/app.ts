@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:2000",
+    origin: process.env.FRONT_END_URL!, // your frontend origin
     credentials: true,
   })
 );
