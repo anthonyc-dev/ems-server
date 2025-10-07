@@ -1,4 +1,4 @@
-name: Backend CI/CD
+name: ASCS Backend CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build-and-test-backend:
+  build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,8 +15,8 @@ jobs:
         node-version: [18.x]
 
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout repository
+      # 1️⃣ Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       # 2️⃣ Setup Node.js
@@ -25,31 +25,29 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # 3️⃣ Cache dependencies
-      - name: Cache Node.js dependencies
+      # 3️⃣ Cache Node.js dependencies
+      - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: |
-            ascs-server-prisma/node_modules
+            node_modules
             ~/.npm
-          key: ${{ runner.os }}-node-ascs-${{ hashFiles('ascs-server-prisma/package-lock.json') }}
+          key: ${{ runner.os }}-node-ascs-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-ascs-
 
       # 4️⃣ Install dependencies
       - name: Install dependencies
-        run: |
-          cd ascs-server-prisma
-          npm ci
+        run: npm ci
 
-      # 5️⃣ Build TypeScript
+      # 5️⃣ Generate Prisma client
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      # 6️⃣ Build TypeScript
       - name: Build backend
-        run: |
-          cd ascs-server-prisma
-          npm run build
+        run: npm run build
 
-      # 6️⃣ Run tests (optional)
+      # 7️⃣ Run tests (optional)
       - name: Run tests
-        run: |
-          cd ascs-server-prisma
-          npm test
+        run: npm test
