@@ -9,7 +9,7 @@ export const validateRegister = (
 ) => {
   try {
     const {
-      studentId,
+      schoolId,
       firstName,
       lastName,
       email,
@@ -20,7 +20,7 @@ export const validateRegister = (
 
     // Check if all required fields are present
     if (
-      !studentId ||
+      !schoolId ||
       !firstName ||
       !lastName ||
       !email ||
@@ -61,10 +61,10 @@ export const validateRegister = (
       return;
     }
 
-    // Validate student ID format: must match 00-0000 (two digits, hyphen, four digits)
-    if (!/^\d{2}-\d{4}$/.test(studentId)) {
+    // Validate school ID format: must match 00-0000 (two digits, hyphen, four digits)
+    if (!/^\d{2}-\d{4}$/.test(schoolId)) {
       res.status(400).json({
-        error: "Student ID must be in the format 00-0000",
+        error: "School ID must be in the format 00-0000",
       });
       return;
     }

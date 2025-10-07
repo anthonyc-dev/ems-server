@@ -2,7 +2,7 @@ import { Request } from "express";
 import { Document } from "mongoose";
 
 export interface IAuth extends Document {
-  studentId: string;
+  schoolId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,7 +15,7 @@ export interface IAuth extends Document {
 }
 
 export interface RegisterRequest {
-  studentId: string;
+  schoolId: string;
   firstName: string;
   lastName: string;
   email: string;

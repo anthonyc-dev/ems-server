@@ -3,13 +3,13 @@ POST http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-    "studentId": "22222",
-    "firstName": "hamdan",
-    "lastName": "Cawasa",
-    "email": "cawasa1@gmail.com",
+    "schoolId": "33-3333",
+    "firstName": "Marjoe",
+    "lastName": "Bechayda",
+    "email": "marjoe@gmail.com",
     "phoneNumber": "1234567890",
-    "password": "Cawasa@123",
-    "role": "admin"
+    "password": "Marjoe@123",
+    "role": "student"
 }
 
 ###Login

@@ -3,12 +3,16 @@ import { IAuth } from "../types/type";
 
 const authSchema = new Schema<IAuth>(
   {
-    studentId: {
+    schoolId: {
       type: String,
       required: true,
       unique: true,
     },
-    fullName: {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
       type: String,
       required: true,
     },
@@ -46,8 +50,9 @@ export const Auth = mongoose.model<IAuth>("Auth", authSchema);
 
 export interface AuthResponse {
   id: string;
-  studentId: string;
-  fullName: string;
+  schoolId: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   role: string;

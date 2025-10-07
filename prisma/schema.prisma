@@ -16,7 +16,7 @@ datasource db {
 
 model AuthenticatedUser {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  studentId String   @unique
+  schoolId String   @unique
   firstName String
   lastName  String
   email     String   @unique

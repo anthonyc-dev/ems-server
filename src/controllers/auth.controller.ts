@@ -16,7 +16,7 @@ const prisma = new PrismaClient();
 export const register = async (req: Request, res: Response) => {
   try {
     const {
-      studentId,
+      schoolId,
       firstName,
       lastName,
       email,
@@ -33,11 +33,21 @@ export const register = async (req: Request, res: Response) => {
       return;
     }
 
+    const existingSchoolId = await prisma.authenticatedUser.findUnique({
+      where: { schoolId },
+    });
+    if (existingSchoolId) {
+      res
+        .status(400)
+        .json({ error: "User with this school ID already exists" });
+      return;
+    }
+
     const hashed = await bcrypt.hash(password, 10);
 
     const user = await prisma.authenticatedUser.create({
       data: {
-        studentId,
+        schoolId,
         firstName,
         lastName,
         email,
@@ -65,7 +75,7 @@ export const register = async (req: Request, res: Response) => {
       message: "User registered successfully",
       user: {
         id: user.id,
-        studentId: user.studentId,
+        schoolId: user.schoolId,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
@@ -117,7 +127,7 @@ export const login = async (req: Request, res: Response) => {
       message: "Login successful",
       user: {
         id: user.id,
-        studentId: user.studentId,
+        schoolId: user.schoolId,
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
@@ -223,7 +233,7 @@ export const getProfile = async (
       where: { id: req.user.userId },
       select: {
         id: true,
-        studentId: true,
+        schoolId: true,
         firstName: true,
         lastName: true,
         email: true,
