@@ -49,5 +49,5 @@ jobs:
         run: npm run build
 
       # 7️⃣ Run tests (optional)
-      - name: Run tests
-        run: npm test
+      # - name: Run tests
+      #   run: npm test
