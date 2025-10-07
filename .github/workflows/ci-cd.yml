@@ -3,12 +3,8 @@ name: Backend CI (Node + Express + TypeScript)
 on:
   push:
     branches: ["main"]
-    paths:
-      - "ascs-server-prisma/**"
   pull_request:
     branches: ["main"]
-    paths:
-      - "ascs-server-prisma/**"
 
 jobs:
   build-and-test:
