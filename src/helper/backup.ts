@@ -13,8 +13,9 @@ const prisma = new PrismaClient();
 export const register = async (req: Request, res: Response) => {
   try {
     const {
-      studentId,
-      fullName,
+      schoolId,
+      firstName,
+      lastName,
       email,
       phoneNumber,
       password,
@@ -38,8 +39,9 @@ export const register = async (req: Request, res: Response) => {
     // Create new user
     const newUser = await prisma.authenticatedUser.create({
       data: {
-        studentId,
-        fullName,
+        schoolId,
+        firstName,
+        lastName,
         email,
         phoneNumber,
         password: hashedPassword,
@@ -78,8 +80,9 @@ export const register = async (req: Request, res: Response) => {
       message: "User registered successfully",
       user: {
         id: newUser.id,
-        studentId: newUser.studentId,
-        fullName: newUser.fullName,
+        schoolId: newUser.schoolId,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
         email: newUser.email,
         phoneNumber: newUser.phoneNumber,
         role: newUser.role,
@@ -138,8 +141,8 @@ export const login = async (req: Request, res: Response) => {
       message: "Login successful",
       user: {
         id: user.id,
-        studentId: user.studentId,
-        fullName: user.fullName,
+        schoolId: user.schoolId,
+        firstName: user.firstName,
         role: user.role,
       },
       accessToken,
@@ -226,8 +229,8 @@ export const getProfile = async (req: AuthenticatedRequest, res: Response) => {
       where: { id: req.user.userId },
       select: {
         id: true,
-        studentId: true,
-        fullName: true,
+        schoolId: true,
+        firstName: true,
         email: true,
         phoneNumber: true,
         role: true,
@@ -242,8 +245,8 @@ export const getProfile = async (req: AuthenticatedRequest, res: Response) => {
     res.status(200).json({
       user: {
         id: user.id,
-        studentId: user.studentId,
-        fullName: user.fullName,
+        schoolId: user.schoolId,
+        firstName: user.firstName,
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.role,
