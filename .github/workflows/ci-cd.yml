@@ -1,4 +1,4 @@
-name: Backend CI (Node + Express + TypeScript)
+name: Backend CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  build-and-test:
+  build-and-test-backend:
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,37 +15,41 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - name: 🧭 Checkout Repository
+      # 1️⃣ Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-          cache-dependency-path: ascs-server-prisma/package-lock.json
 
-      - name: 📦 Install Dependencies
-        working-directory: ./ascs-server-prisma
-        run: npm ci
-
-      - name: 🧱 Type Check
-        working-directory: ./ascs-server-prisma
-        run: npm run type-check || npx tsc --noEmit
-
-      - name: 🧪 Run Tests
-        working-directory: ./ascs-server-prisma
-        run: |
-          echo "No tests configured — skipping"
-          # Uncomment this if you have tests
-          # npm test
-
-      - name: 🏗️ Build Project
-        working-directory: ./ascs-server-prisma
-        run: npm run build
-
-      - name: 📂 Upload Build Artifact
-        uses: actions/upload-artifact@v4
+      # 3️⃣ Cache dependencies
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
         with:
-          name: ascs-server-prisma-build
-          path: ascs-server-prisma/dist
+          path: |
+            ascs-server-prisma/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-ascs-${{ hashFiles('ascs-server-prisma/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-ascs-
+
+      # 4️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          cd ascs-server-prisma
+          npm ci
+
+      # 5️⃣ Build TypeScript
+      - name: Build backend
+        run: |
+          cd ascs-server-prisma
+          npm run build
+
+      # 6️⃣ Run tests (optional)
+      - name: Run tests
+        run: |
+          cd ascs-server-prisma
+          npm test
