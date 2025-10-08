@@ -34,7 +34,7 @@ POST http://localhost:8080/auth/refresh-token
 Content-Type: application/json
 
 {
-    "refreshToken":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg3MzI2MzUxMTQ2N2FhOThmYzJlYTgiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1Njc3NjA5NywiZXhwIjoxNzU2Nzc2MTA3fQ.fPyuVUlwFGzDp36Pe2KqzsFFSdDn3bx9TsX87wM78c0"
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg3MzI2MzUxMTQ2N2FhOThmYzJlYTgiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1Njc3NjA5NywiZXhwIjoxNzU2Nzc2MTA3fQ.fPyuVUlwFGzDp36Pe2KqzsFFSdDn3bx9TsX87wM78c0"
 }
 
 ###Profile

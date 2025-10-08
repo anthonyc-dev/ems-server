@@ -31,6 +31,7 @@ export interface LoginRequest {
 
 export interface AuthenticatedRequest extends Request {
   user?: {
+    id: string;
     userId: string;
     email: string;
     role: string;
