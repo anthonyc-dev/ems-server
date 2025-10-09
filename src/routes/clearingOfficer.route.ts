@@ -1,16 +1,17 @@
 import { Router } from "express";
-import {
-  register,
-  login,
-  getProfile,
-  refreshToken,
-  logout,
-} from "../controllers/auth.controller";
+
 import { validateLogin, validateRegister } from "../middlewares/auth.validator";
 import {
   authenticateToken,
   authorizeRoles,
 } from "../middlewares/authentication";
+import {
+  getProfile,
+  login,
+  logout,
+  refreshToken,
+  register,
+} from "../controllers/clearingOfficer.controller";
 
 const router = Router();
 

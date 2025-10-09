@@ -2,9 +2,10 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import authRoutes from "./routes/auth.route";
+import clearingOfficer from "./routes/clearingOfficer.route";
 import qrCodeRoutes from "./routes/qrCode.route";
 import requirementReq from "./routes/requirement.route";
+import studentRoutes from "./routes/student.route";
 
 const app: Application = express();
 
@@ -26,8 +27,9 @@ app.get("/", (_req: Request, res: Response): void => {
 });
 
 //rooutes
-app.use("/auth", authRoutes);
+app.use("/auth", clearingOfficer);
 app.use("/qr-code", qrCodeRoutes);
 app.use("/req", requirementReq);
+app.use("/student", studentRoutes);
 
 export default app;

@@ -8,18 +8,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model AuthenticatedUser {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  schoolId     String   @unique
+
+model ClearingOfficer {
+  id           String                 @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId     String                 @unique
   firstName    String
   lastName     String
-  email        String   @unique
+  email        String                 @unique
   phoneNumber  String
   password     String
   role         String
   refreshToken String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
   permits      Permit[]
   requirements Requirement[]
   studentReq   StudentRequirement[]
@@ -33,31 +34,71 @@ model Permit {
   status     String              @default("active")
   createdAt  DateTime            @default(now())
 
-  user       AuthenticatedUser   @relation(fields: [userId], references: [id])
+  user       ClearingOfficer   @relation(fields: [userId], references: [id])
   @@map("permits")
 }
 
-
 model Requirement {
-  id             String                @id @default(auto()) @map("_id") @db.ObjectId
-  userId         String                @db.ObjectId
+  id             String                        @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String                        @db.ObjectId
   title          String
   requirements   String[]
   department     String
   dueDate        DateTime
   description    String
-  createdAt      DateTime              @default(now())
-  updatedAt      DateTime              @updatedAt
+  createdAt      DateTime                      @default(now())
+  updatedAt      DateTime                      @updatedAt
   studentReq     StudentRequirement[]
-  clearingOfficer        AuthenticatedUser     @relation(fields: [userId], references: [id])
+  clearingOfficer        ClearingOfficer     @relation(fields: [userId], references: [id])
 
 }
+
+enum Program {
+  Bachelor_of_Science_in_Hospitality_Management
+  Bachelor_of_Science_in_Computer_Science
+  Bachelor_of_Science_in_Electrical_Engineering
+  Bachelor_of_Science_in_Criminology
+  Bachelor_of_Science_in_Social_Work
+  Bachelor_of_Science_in_Accountancy
+  Bachelor_of_Science_in_Midwifery
+  Bachelor_of_Science_in_Medical_Technology
+  Bachelor_of_Science_in_Nursing
+  Bachelor_of_Science_in_Business_Administration
+  Bachelor_of_Elementary_Education
+  Bachelor_of_Arts_in_Political_Science
+  Bachelor_in_Secondary_Education_Major_in_Mathematics
+  Bachelor_in_Secondary_Education_Major_in_Science
+  Bachelor_in_Secondary_Education_Major_in_Filipino
+}
+
+
+enum YearLevel {
+  First_Year
+  Second_Year
+  Third_Year
+  Fourth_Year
+  Fifth_Year
+}
+
+
+model Student {
+  id          String                        @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId    String   @unique
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phoneNumber String
+  program     Program
+  yearLevel   YearLevel
+  password    String
+}
+
 
 model StudentRequirement {
   id              String                  @id @default(auto()) @map("_id") @db.ObjectId
   studentId       String                  @db.ObjectId
   requirementId   String                  @db.ObjectId
   status          String                  @default("Pending")
-  student         AuthenticatedUser       @relation(fields: [studentId], references: [id])
+  student         ClearingOfficer       @relation(fields: [studentId], references: [id])
   requirement     Requirement             @relation(fields: [requirementId], references: [id])
 }

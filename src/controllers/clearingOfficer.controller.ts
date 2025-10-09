@@ -25,7 +25,7 @@ export const register = async (req: Request, res: Response) => {
       role,
     }: RegisterRequest = req.body;
 
-    const existing = await prisma.authenticatedUser.findUnique({
+    const existing = await prisma.clearingOfficer.findUnique({
       where: { email },
     });
     if (existing) {
@@ -33,7 +33,7 @@ export const register = async (req: Request, res: Response) => {
       return;
     }
 
-    const existingSchoolId = await prisma.authenticatedUser.findUnique({
+    const existingSchoolId = await prisma.clearingOfficer.findUnique({
       where: { schoolId },
     });
     if (existingSchoolId) {
@@ -45,7 +45,7 @@ export const register = async (req: Request, res: Response) => {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    const user = await prisma.authenticatedUser.create({
+    const user = await prisma.clearingOfficer.create({
       data: {
         schoolId,
         firstName,
@@ -64,7 +64,7 @@ export const register = async (req: Request, res: Response) => {
     });
     const refreshToken = signRefreshToken(user.id);
 
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: user.id },
       data: { refreshToken },
     });
@@ -95,7 +95,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const { email, password }: LoginRequest = req.body;
 
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { email },
     });
     if (!user) {
@@ -116,7 +116,7 @@ export const login = async (req: Request, res: Response) => {
     });
     const refreshToken = signRefreshToken(user.id);
 
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: user.id },
       data: { refreshToken },
     });
@@ -158,7 +158,7 @@ export const refreshToken = async (req: Request, res: Response) => {
       return;
     }
 
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { id: decoded.userId },
     });
     if (!user || user.refreshToken !== oldToken) {
@@ -173,7 +173,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     });
     const newRefresh = signRefreshToken(user.id);
 
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: user.id },
       data: { refreshToken: newRefresh },
     });
@@ -197,7 +197,7 @@ export const logout = async (req: Request, res: Response) => {
           oldToken,
           process.env.JWT_REFRESH_SECRET!
         );
-        await prisma.authenticatedUser.update({
+        await prisma.clearingOfficer.update({
           where: { id: decoded.userId },
           data: { refreshToken: null },
         });
@@ -229,7 +229,7 @@ export const getProfile = async (
       return;
     }
 
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { id: req.user.userId },
       select: {
         id: true,

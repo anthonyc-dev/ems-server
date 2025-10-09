@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
-import {
-  PrismaClient,
-  Permit,
-  AuthenticatedUser,
-} from "../../generated/prisma";
+import { PrismaClient, Permit } from "../../generated/prisma";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import QRCode from "qrcode";
 
@@ -31,7 +27,7 @@ export const generateQR = async (
     }
 
     // Ensure user exists
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { id: userId },
     });
 
