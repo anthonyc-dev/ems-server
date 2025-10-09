@@ -1,5 +1,5 @@
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { PrismaClient, Permit } from "../../generated/prisma";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import QRCode from "qrcode";
 
@@ -37,7 +37,7 @@ export const generateQR = async (
     }
 
     // Create permit
-    const permit: Permit = await prisma.permit.create({
+    const permit = await prisma.permit.create({
       data: {
         userId: userId,
         permitCode: `PERMIT-${Date.now()}`,

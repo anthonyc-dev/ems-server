@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "../../generated/prisma";
+
 import {
   cookieOptions,
   signAccessToken,
@@ -9,6 +9,7 @@ import {
   tokenErrStatus,
 } from "../libs/token";
 import { LoginRequest, RegisterRequest } from "../types/type";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 

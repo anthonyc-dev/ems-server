@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../../generated/prisma";
 import bcrypt from "bcrypt";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 // Create a new student
