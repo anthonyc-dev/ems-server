@@ -9,6 +9,7 @@ datasource db {
 }
 
 
+//clearing officer model -> permit, requirements model & studentReq
 model ClearingOfficer {
   id           String                 @id @default(auto()) @map("_id") @db.ObjectId
   schoolId     String                 @unique
@@ -21,11 +22,13 @@ model ClearingOfficer {
   refreshToken String?
   createdAt    DateTime               @default(now())
   updatedAt    DateTime               @updatedAt
+  
   permits      Permit[]
   requirements Requirement[]
-  studentReq   StudentRequirement[]
 }
 
+
+//permit model
 model Permit {
   id         String              @id @default(auto()) @map("_id") @db.ObjectId
   userId     String              @db.ObjectId
@@ -34,10 +37,11 @@ model Permit {
   status     String              @default("active")
   createdAt  DateTime            @default(now())
 
-  user       ClearingOfficer   @relation(fields: [userId], references: [id])
+  user       ClearingOfficer     @relation(fields: [userId], references: [id])
   @@map("permits")
 }
 
+//requirement model -> studentReq & clearing officer
 model Requirement {
   id             String                        @id @default(auto()) @map("_id") @db.ObjectId
   userId         String                        @db.ObjectId
@@ -48,9 +52,9 @@ model Requirement {
   description    String
   createdAt      DateTime                      @default(now())
   updatedAt      DateTime                      @updatedAt
-  studentReq     StudentRequirement[]
-  clearingOfficer        ClearingOfficer     @relation(fields: [userId], references: [id])
 
+  clearingOfficer        ClearingOfficer       @relation(fields: [userId], references: [id])
+  studentReq     StudentRequirement[]
 }
 
 enum Program {
@@ -81,8 +85,9 @@ enum YearLevel {
 }
 
 
+//student model -> studentReq
 model Student {
-  id          String                        @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   schoolId    String   @unique
   firstName   String
   lastName    String
@@ -91,14 +96,18 @@ model Student {
   program     Program
   yearLevel   YearLevel
   password    String
+
+  studentReq  StudentRequirement[]
 }
 
 
+//student requirement model
 model StudentRequirement {
   id              String                  @id @default(auto()) @map("_id") @db.ObjectId
   studentId       String                  @db.ObjectId
   requirementId   String                  @db.ObjectId
   status          String                  @default("Pending")
-  student         ClearingOfficer       @relation(fields: [studentId], references: [id])
+
+  student         Student       @relation(fields: [studentId], references: [id])
   requirement     Requirement             @relation(fields: [requirementId], references: [id])
 }

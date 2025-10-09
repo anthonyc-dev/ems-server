@@ -23,7 +23,7 @@ export const register = async (req: Request, res: Response) => {
     }: RegisterRequest = req.body;
 
     // Check if user already exists
-    const existingUser = await prisma.authenticatedUser.findUnique({
+    const existingUser = await prisma.clearingOfficer.findUnique({
       where: { email },
     });
 
@@ -37,7 +37,7 @@ export const register = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create new user
-    const newUser = await prisma.authenticatedUser.create({
+    const newUser = await prisma.clearingOfficer.create({
       data: {
         schoolId,
         firstName,
@@ -71,7 +71,7 @@ export const register = async (req: Request, res: Response) => {
     // res.json({ accessToken, user });
 
     // Store refresh token in database (you might want to add a refreshToken field to your Auth model)
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: newUser.id },
       data: { refreshToken },
     });
@@ -101,7 +101,7 @@ export const login = async (req: Request, res: Response) => {
     const { email, password }: LoginRequest = req.body;
 
     // Find user by email
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { email },
     });
 
@@ -132,7 +132,7 @@ export const login = async (req: Request, res: Response) => {
     );
 
     // Store refresh token in database
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: user.id },
       data: { refreshToken },
     });
@@ -171,7 +171,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     ) as any;
 
     // Find user and check if refresh token matches
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { id: decoded.userId },
     });
 
@@ -205,7 +205,7 @@ export const logout = async (req: AuthenticatedRequest, res: Response) => {
     }
 
     // Clear refresh token from database
-    await prisma.authenticatedUser.update({
+    await prisma.clearingOfficer.update({
       where: { id: req.user.userId },
       data: { refreshToken: null },
     });
@@ -225,7 +225,7 @@ export const getProfile = async (req: AuthenticatedRequest, res: Response) => {
       return;
     }
 
-    const user = await prisma.authenticatedUser.findUnique({
+    const user = await prisma.clearingOfficer.findUnique({
       where: { id: req.user.userId },
       select: {
         id: true,
