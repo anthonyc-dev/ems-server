@@ -341,6 +341,13 @@ Deploy with:
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
+Build Docker locally:
+
+```bash
+docker build -t my-backend-app .
+docker run -p 8080:8080 my-backend-app
+```
+
 ## 📁 Project Structure
 
 ```

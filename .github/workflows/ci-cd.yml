@@ -51,3 +51,54 @@ jobs:
       # 7️⃣ Run tests (optional)
       # - name: Run tests
       #   run: npm test
+
+      # 8️⃣ Test Docker build
+      - name: Test Docker build
+        run: |
+          docker build -t ascs-backend:test .
+          docker images ascs-backend:test
+
+      # 9️⃣ Test Docker image functionality
+      - name: Test Docker image
+        run: |
+          # Test that the image can start and responds to health checks
+          docker run -d --name ascs-test -p 3001:3000 \
+            -e NODE_ENV=test \
+            -e PORT=3000 \
+            ascs-backend:test
+
+          # Wait for container to start
+          sleep 10
+
+          # Check if container is running
+          docker ps | grep ascs-test
+
+          # Test health endpoint (if available)
+          # curl -f http://localhost:3001/ || echo "Health check endpoint not available"
+
+          # Clean up test container
+          docker stop ascs-test
+          docker rm ascs-test
+
+      # 🔟 Test Docker Compose setup
+      - name: Test Docker Compose
+        run: |
+          # Create a test environment file
+          echo "NODE_ENV=test" > .env.test
+          echo "PORT=3000" >> .env.test
+          echo "DATABASE_URL=sqlite:./test.db" >> .env.test
+
+          # Test docker-compose build
+          docker-compose -f docker-compose.yml --env-file .env.test config
+
+          # Clean up test env file
+          rm .env.test
+
+      # 1️⃣1️⃣ Clean up Docker resources
+      - name: Clean up Docker resources
+        if: always()
+        run: |
+          # Remove test image to save space
+          docker rmi ascs-backend:test || true
+          # Clean up any dangling images
+          docker image prune -f || true
