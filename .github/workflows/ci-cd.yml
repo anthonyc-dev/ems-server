@@ -84,15 +84,15 @@ jobs:
       - name: Test Docker Compose
         run: |
           # Create a test environment file
-          echo "NODE_ENV=test" > .env.test
-          echo "PORT=3000" >> .env.test
-          echo "DATABASE_URL=sqlite:./test.db" >> .env.test
+          echo "NODE_ENV=test" > .env
+          echo "PORT=3000" >> .env
+          echo "DATABASE_URL=sqlite:./test.db" >> .env
 
           # Test docker-compose build
-          docker compose -f docker-compose.yml --env-file .env.test config
+          docker compose -f docker-compose.yml --env-file .env config
 
           # Clean up test env file
-          rm .env.test
+          rm .env
 
       # 1️⃣1️⃣ Clean up Docker resources
       - name: Clean up Docker resources
