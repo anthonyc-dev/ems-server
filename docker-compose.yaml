@@ -7,7 +7,7 @@ services:
       - .env
     container_name: online_clearance_prod
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PORT=3000
       # Environment variables will be loaded from .env file
     volumes:

@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Sample route
 app.get("/", (_req: Request, res: Response): void => {
-  res.send("Hello from Express + TypeScript + CORS + body-parser!");
+  res.send("Hello from Express + TypeScript + CORS + body-parser! Dockerized!");
 });
 
 //rooutes

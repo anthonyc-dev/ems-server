@@ -37,3 +37,14 @@ export interface AuthenticatedRequest extends Request {
     role: string;
   };
 }
+
+export interface StudentRegisterRequest {
+  schoolId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  program: string;
+  yearLevel: string;
+  password: string;
+}

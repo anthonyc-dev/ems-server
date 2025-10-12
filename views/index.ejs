@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🚀 Welcome to ASCS Backend</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #1f2937 0%, #0ea5e9 100%);
+        color: #f3f4f6;
+        font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+      }
+      .container {
+        background: rgba(31, 41, 55, 0.95);
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+        padding: 3rem 2.5rem;
+        text-align: center;
+        max-width: 480px;
+        margin: 0 15px;
+      }
+      .docker-logo {
+        height: 72px;
+        margin-bottom: 1rem;
+        animation: float 2.5s ease-in-out infinite;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      .title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.6rem;
+        color: #38bdf8;
+      }
+      .subtitle {
+        font-size: 1.15rem;
+        font-weight: 400;
+        margin-bottom: 1.8em;
+        color: #e0e7ef;
+      }
+      .badge {
+        display: inline-block;
+        background: #2563eb;
+        color: #f3f4f6;
+        font-size: 0.97rem;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 0.35em 0.95em;
+        margin: 0.35em;
+        box-shadow: 0 2px 8px rgba(38, 99, 235, 0.15);
+      }
+      .footer {
+        margin-top: 2em;
+        font-size: 0.95rem;
+        color: #9ca3af;
+        letter-spacing: 0.03em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img
+        class="docker-logo"
+        src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png"
+        alt="Docker Logo"
+      />
+      <div class="title">ASCS Backend Server</div>
+      <div class="subtitle">
+        Now running inside a <span class="badge">Docker Container</span> and
+        ready for scalable deployments!
+      </div>
+      <div>
+        <span class="badge">TypeScript</span>
+        <span class="badge">Express.js</span>
+        <span class="badge">Prisma ORM</span>
+        <span class="badge">MongoDB</span>
+      </div>
+      <div class="footer">
+        <span
+          >🌐 This backend API is securely containerized, <br />
+          dev-friendly and production-ready.</span
+        >
+      </div>
+    </div>
+  </body>
+</html>
