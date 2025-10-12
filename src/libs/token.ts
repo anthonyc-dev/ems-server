@@ -13,7 +13,7 @@ export const cookieOptions = {
 export function signAccessToken(user: {
   id: string;
   email: string;
-  role: string;
+  role?: string;
 }) {
   return jwt.sign(
     { userId: user.id, email: user.email, role: user.role },

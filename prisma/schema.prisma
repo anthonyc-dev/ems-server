@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
- 
 }
 
 datasource db {
@@ -57,33 +56,6 @@ model Requirement {
   studentReq     StudentRequirement[]
 }
 
-enum Program {
-  Bachelor_of_Science_in_Hospitality_Management
-  Bachelor_of_Science_in_Computer_Science
-  Bachelor_of_Science_in_Electrical_Engineering
-  Bachelor_of_Science_in_Criminology
-  Bachelor_of_Science_in_Social_Work
-  Bachelor_of_Science_in_Accountancy
-  Bachelor_of_Science_in_Midwifery
-  Bachelor_of_Science_in_Medical_Technology
-  Bachelor_of_Science_in_Nursing
-  Bachelor_of_Science_in_Business_Administration
-  Bachelor_of_Elementary_Education
-  Bachelor_of_Arts_in_Political_Science
-  Bachelor_in_Secondary_Education_Major_in_Mathematics
-  Bachelor_in_Secondary_Education_Major_in_Science
-  Bachelor_in_Secondary_Education_Major_in_Filipino
-}
-
-
-enum YearLevel {
-  First_Year
-  Second_Year
-  Third_Year
-  Fourth_Year
-  Fifth_Year
-}
-
 
 //student model -> studentReq
 model Student {
@@ -93,9 +65,12 @@ model Student {
   lastName    String
   email       String   @unique
   phoneNumber String
-  program     Program
-  yearLevel   YearLevel
+  program     String
+  yearLevel   String
   password    String
+  refreshToken String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
 
   studentReq  StudentRequirement[]
 }

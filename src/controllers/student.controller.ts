@@ -1,10 +1,26 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import {
+  cookieOptions,
+  signAccessToken,
+  signRefreshToken,
+} from "../libs/token";
 
 const prisma = new PrismaClient();
+
+interface StudentType {
+  schoolId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  program: string;
+  yearLevel: string;
+  password: string;
+}
 // Create a new student
-export const createStudent = async (req: Request, res: Response) => {
+export const registerStudent = async (req: Request, res: Response) => {
   try {
     const {
       schoolId,
@@ -15,7 +31,7 @@ export const createStudent = async (req: Request, res: Response) => {
       program,
       yearLevel,
       password,
-    } = req.body;
+    }: StudentType = req.body;
 
     // Hash the password before storing
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,10 +49,83 @@ export const createStudent = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json(student);
+    const accessToken = signAccessToken({
+      id: student.id,
+      email: student.email,
+    });
+    const refreshToken = signRefreshToken(student.id);
+
+    await prisma.student.update({
+      where: { id: student.id },
+      data: { refreshToken },
+    });
+
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+
+    res.status(201).json({
+      message: "Student registered successfully",
+      student: {
+        id: student.id,
+        schoolId: student.schoolId,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email,
+        phoneNumber: student.phoneNumber,
+        program: student.program,
+        yearLevel: student.yearLevel,
+      },
+      accessToken,
+    });
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const loginStudent = async (req: Request, res: Response) => {
+  try {
+    const { email, password }: StudentType = req.body;
+
+    const student = await prisma.student.findUnique({
+      where: { email },
+    });
+    if (!student) {
+      res.status(401).json({ error: "Wrong credentials" });
+      return;
+    }
+
+    const ok = await bcrypt.compare(password, student.password);
+    if (!ok) {
+      res.status(401).json({ error: "Wrong credentials" });
+      return;
+    }
+
+    const accessToken = signAccessToken({
+      id: student.id,
+      email: student.email,
+    });
+    const refreshToken = signRefreshToken(student.id);
+
+    await prisma.clearingOfficer.update({
+      where: { id: student.id },
+      data: { refreshToken },
+    });
+
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+
+    res.status(200).json({
+      message: "Login successful",
+      student: {
+        id: student.id,
+        schoolId: student.schoolId,
+        firstName: student.firstName,
+        lastName: student.lastName,
+      },
+      accessToken,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

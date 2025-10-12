@@ -166,6 +166,16 @@ docker-compose build
 docker-compose restart app
 ```
 
+### Clean up Local Docker Desktop
+
+```bash
+docker image prune -f
+
+# Or
+
+docker system prune -a --volumes
+```
+
 ## 🐛 Troubleshooting
 
 ### Common Issues
