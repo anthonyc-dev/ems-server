@@ -172,7 +172,20 @@ export const studentValidateRegister = (
       return;
     }
 
-    //next validation
+    //program and year level validation
+    if (!validator.matches(program, /^[a-zA-Z\s]+$/)) {
+      res.status(400).json({
+        error: "Program must contain only letters and spaces",
+      });
+      return;
+    }
+
+    if (!validator.matches(yearLevel, /^[a-zA-Z\s]+$/)) {
+      res.status(400).json({
+        error: "Year level must contain only letters and spaces",
+      });
+      return;
+    }
 
     // Validate school ID format: must match 00-0000 (two digits, hyphen, four digits)
     if (!/^\d{2}-\d{4}$/.test(schoolId)) {

@@ -89,7 +89,7 @@ jobs:
           echo "DATABASE_URL=sqlite:./test.db" >> .env
 
           # Test docker-compose build
-          docker compose -f docker-compose.yml --env-file .env config
+          docker compose -f docker-compose.yaml --env-file .env config
 
           # Clean up test env file
           rm .env

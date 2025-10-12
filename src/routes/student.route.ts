@@ -7,11 +7,14 @@ import {
   registerStudent,
   updateStudent,
 } from "../controllers/student.controller";
-import { validateLogin } from "../middlewares/auth.validator";
+import {
+  studentValidateRegister,
+  validateLogin,
+} from "../middlewares/auth.validator";
 
 const router = Router();
 
-router.post("/registerStudent", registerStudent);
+router.post("/registerStudent", studentValidateRegister, registerStudent);
 router.post("/loginStudent", validateLogin, loginStudent);
 router.get("/getAllStudent", getStudents);
 router.get("/getByIdStudent/:id", getStudentById);
