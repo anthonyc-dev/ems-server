@@ -103,6 +103,24 @@ docker-compose restart app
 docker-compose up -d --scale app=3
 ```
 
+### Use a specific Docker Compose file
+
+If you have multiple compose files, e.g.:
+
+- docker-compose.yml → dev
+
+- docker-compose.prod.yml → production
+
+You can specify which one to use:
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+
+# Or
+
+docker compose -f docker-compose.yml -f docker-compose.override.yml up
+```
+
 ## 📊 Monitoring and Logs
 
 ### View Logs

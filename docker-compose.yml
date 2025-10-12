@@ -5,6 +5,7 @@ services:
       - "3000:3000"
     env_file:
       - .env
+    container_name: online_clearance_prod
     environment:
       - NODE_ENV=development
       - PORT=3000

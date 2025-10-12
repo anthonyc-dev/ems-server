@@ -1,0 +1,36 @@
+# --------------------------------------------
+#  Base image
+# --------------------------------------------
+    FROM node:20-alpine
+
+    # --------------------------------------------
+    #  Set working directory
+    # --------------------------------------------
+    WORKDIR /app
+    
+    # --------------------------------------------
+    #  Install dependencies first (cache efficient)
+    # --------------------------------------------
+    COPY package*.json ./
+    RUN npm install
+    
+    # --------------------------------------------
+    #  Copy the rest of your app
+    # --------------------------------------------
+    COPY . .
+    
+    # --------------------------------------------
+    #  Generate Prisma client (if using Prisma)
+    # --------------------------------------------
+    RUN npx prisma generate || echo "Skipping Prisma client generation (not configured yet)"
+    
+    # --------------------------------------------
+    #  Expose the app port
+    # --------------------------------------------
+    EXPOSE 3000
+    
+    # --------------------------------------------
+    #  Default command (development mode with Nodemon)
+    # --------------------------------------------
+    CMD ["npx", "nodemon", "--watch", ".", "--ext", "ts,json", "--exec", "npx ts-node src/index.ts"]
+    

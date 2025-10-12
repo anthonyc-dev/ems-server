@@ -106,7 +106,7 @@ export const loginStudent = async (req: Request, res: Response) => {
     });
     const refreshToken = signRefreshToken(student.id);
 
-    await prisma.clearingOfficer.update({
+    await prisma.student.update({
       where: { id: student.id },
       data: { refreshToken },
     });
