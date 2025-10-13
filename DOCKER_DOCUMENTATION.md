@@ -324,6 +324,18 @@ docker-compose logs -f
 docker-compose restart app
 ```
 
+### **Docker Watch Commands**
+
+If you have your docker-compose.yml or docker-compose.dev.yml, run:
+
+```bash
+docker compose watch
+
+# Or specify the file
+
+docker compose -f docker-compose.dev.yml watch
+```
+
 ### **Development Commands**
 
 ```bash
@@ -374,6 +386,9 @@ docker rmi $(docker images -q ascs-server)
 
 # Clean up build cache
 docker builder prune
+
+# Force prune to remove all caches, even ones that can still be reused
+docker builder prune --all -f
 ```
 
 ---

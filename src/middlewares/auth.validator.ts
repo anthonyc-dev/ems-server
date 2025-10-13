@@ -180,9 +180,10 @@ export const studentValidateRegister = (
       return;
     }
 
-    if (!validator.matches(yearLevel, /^[a-zA-Z\s]+$/)) {
+    // Allow yearLevel to contain letters, numbers, and spaces (e.g., "3rd Year", "2023", "First Year")
+    if (!validator.matches(yearLevel, /^[a-zA-Z0-9\s]+$/)) {
       res.status(400).json({
-        error: "Year level must contain only letters and spaces",
+        error: "Year level must contain only letters, numbers, and spaces",
       });
       return;
     }

@@ -120,6 +120,10 @@ export const loginStudent = async (req: Request, res: Response) => {
         schoolId: student.schoolId,
         firstName: student.firstName,
         lastName: student.lastName,
+        email: student.email,
+        phoneNumber: student.phoneNumber,
+        program: student.program,
+        yearLevel: student.yearLevel,
       },
       accessToken,
     });
