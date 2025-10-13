@@ -85,15 +85,17 @@ jobs:
       # 🔟 Install Render CLI (Fixed)
       - name: Install Render CLI
         run: |
-          # Fetch latest version from GitHub API
-          LATEST_VERSION=$(curl -s https://api.github.com/repos/render-oss/cli/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
-          echo "Installing Render CLI version: $LATEST_VERSION"
+          # Get latest release JSON
+          RELEASE_JSON=$(curl -s https://api.github.com/repos/render-oss/cli/releases/latest)
 
-          # Try both possible asset names (Render sometimes renames binaries)
-          curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render_linux_amd64" -o render || \
-          curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render-linux-amd64" -o render
+          # Extract version and asset download URL for Linux amd64
+          DOWNLOAD_URL=$(echo "$RELEASE_JSON" | grep -Eo 'https://[^"]+render.*linux.*amd64' | head -n 1)
+          echo "Downloading Render CLI from: $DOWNLOAD_URL"
 
-          # Make it executable and move to /usr/local/bin
+          # Download binary
+          curl -fsSL "$DOWNLOAD_URL" -o render
+
+          # Make it executable and move to PATH
           chmod +x render
           sudo mv render /usr/local/bin/render
 
