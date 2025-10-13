@@ -82,52 +82,6 @@ jobs:
           docker stop test-container
           docker rm test-container
 
-      # 🔟 Install Render CLI (Fixed)
-      - name: Install Render CLI
-        run: |
-          # Get latest release JSON
-          RELEASE_JSON=$(curl -s https://api.github.com/repos/render-oss/cli/releases/latest)
-
-          # Extract version and asset download URL for Linux amd64
-          DOWNLOAD_URL=$(echo "$RELEASE_JSON" | grep -Eo 'https://[^"]+render.*linux.*amd64' | head -n 1)
-          echo "Downloading Render CLI from: $DOWNLOAD_URL"
-
-          # Download binary
-          curl -fsSL "$DOWNLOAD_URL" -o render
-
-          # Make it executable and move to PATH
-          chmod +x render
-          sudo mv render /usr/local/bin/render
-
-          # Verify installation
-          render --version
-
-      # 1️⃣1️⃣ Login to Render
-      - name: Login to Render
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-        run: |
-          render auth login --api-key "$RENDER_API_KEY"
-
-      # 1️⃣1️⃣ Deploy to Render
-      - name: Deploy to Render
-        env:
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          NODE_ENV: production
-          PORT: 10000
-        run: |
-          # Create deployment using Render CLI
-          render services deploy $RENDER_SERVICE_ID \
-            --dockerfile Dockerfile \
-            --docker-context . \
-            --env-vars \
-              DATABASE_URL=$DATABASE_URL \
-              JWT_SECRET=$JWT_SECRET \
-              NODE_ENV=$NODE_ENV \
-              PORT=$PORT
-
       # 1️⃣2️⃣ Health check
       - name: Health check
         env:
