@@ -86,19 +86,19 @@ jobs:
       - name: Install Render CLI
         run: |
           # Fetch latest version from GitHub API
-           LATEST_VERSION=$(curl -s https://api.github.com/repos/render-oss/cli/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
-           echo "Installing Render CLI version: $LATEST_VERSION
+          LATEST_VERSION=$(curl -s https://api.github.com/repos/render-oss/cli/releases/latest | grep '"tag_name":' | cut -d'"' -f4)
+          echo "Installing Render CLI version: $LATEST_VERSION"
 
-           # Try both possible file names to avoid 404
-           curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render_linux_amd64" -o render || \
-           curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render-linux-amd64" -o render
+          # Try both possible asset names (Render sometimes renames binaries)
+          curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render_linux_amd64" -o render || \
+          curl -fsSL "https://github.com/render-oss/cli/releases/download/${LATEST_VERSION}/render-linux-amd64" -o render
 
-           # Make it executable and add to PATH
-           chmod +x render
-           sudo mv render /usr/local/bin/render
+          # Make it executable and move to /usr/local/bin
+          chmod +x render
+          sudo mv render /usr/local/bin/render
 
-           # Verify installation
-           render --version
+          # Verify installation
+          render --version
 
       # 1️⃣1️⃣ Login to Render
       - name: Login to Render
