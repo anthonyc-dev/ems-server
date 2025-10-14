@@ -1,5 +1,7 @@
+version: "3.9"
+
 services:
-  app:
+  app_prod:
     build: .
     ports:
       - "3000:3000"

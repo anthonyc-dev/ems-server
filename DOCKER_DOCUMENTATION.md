@@ -334,6 +334,12 @@ docker compose watch
 # Or specify the file
 
 docker compose -f docker-compose.dev.yml watch
+
+# Or run in your local terminal
+
+docker-compose -f docker-compose.dev.yml up --watch
+
+docker-compose -f docker-compose.dev.yml up --build --watch
 ```
 
 ### **Development Commands**

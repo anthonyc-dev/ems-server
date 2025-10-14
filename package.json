@@ -8,7 +8,6 @@
     "dev": "nodemon --exec \"ts-node\" src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc -p .",
-    "prisma:merge": "ts-node scripts/merge-prisma.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
@@ -31,7 +30,8 @@
     "mongoose": "^8.16.1",
     "npm": "^11.4.2",
     "qrcode": "^1.5.4",
-    "validator": "^13.15.15"
+    "validator": "^13.15.15",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
