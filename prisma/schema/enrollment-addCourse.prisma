@@ -1,0 +1,11 @@
+model CourseManagement {
+  id              String              @id @default(auto()) @map("_id") @db.ObjectId
+  courseCode      String              @unique
+  courseName      String
+  description     String?
+  units           Int
+  department      String
+  prerequisites   String[]
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+}

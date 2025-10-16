@@ -1,0 +1,10 @@
+model SemesterManagement {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  semesterName      String
+  academicYear      String                        // e.g. "2025-2026"
+  semesterType      String  // Enum: FIRST, SECOND, SUMMER
+  semesterDuration  String                        // e.g. "June - October"
+  enrollmentPeriod  String                        // e.g. "May 1 - June 15"
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+}

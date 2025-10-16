@@ -1,0 +1,17 @@
+//clearing officer model -> permit, requirements model & studentReq
+model ClearingOfficer {
+  id           String                 @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId     String                 @unique
+  firstName    String
+  lastName     String
+  email        String                 @unique
+  phoneNumber  String
+  password     String
+  role         String
+  refreshToken String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  
+  permits      Permit[]
+  requirements Requirement[]
+}

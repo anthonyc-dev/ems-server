@@ -1,0 +1,18 @@
+
+model StudentManagement {
+  id              String                  @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId       String                  @unique                     // school id
+  firstName      String
+  lastName       String
+  middleName     String?                                 // optional
+  email          String?    @unique                      // optional but unique if provided
+  phone          String?                                  // store as string to preserve leading zeros / formatting
+  dateOfBirth    DateTime?
+  gender         String    @default("UNSPECIFIED")
+  address        String?
+  yearLevel      String
+  department     String?
+  program        String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}

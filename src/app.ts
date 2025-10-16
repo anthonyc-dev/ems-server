@@ -7,6 +7,10 @@ import clearingOfficer from "./routes/clearingOfficer.route";
 import qrCodeRoutes from "./routes/qrCode.route";
 import requirementReq from "./routes/requirement.route";
 import studentRoutes from "./routes/student.route";
+import enrollmentStudentManagementRoute from "./routes/enrollment/enrollment-student-management.route";
+import enrollmentSemesterRoute from "./routes/enrollment/enrollment-semester.route";
+import enrollmentCourseRoute from "./routes/enrollment/enrollment-addCourse.route";
+import enrollmentSectionRoute from "./routes/enrollment/enrollment-section.route";
 
 const app: Application = express();
 
@@ -19,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.FRONT_END_URL,
+    origin: [process.env.FRONT_END_URL || "", "http://localhost:5173"],
     credentials: true,
   })
 );
@@ -46,5 +50,9 @@ app.use("/auth", clearingOfficer);
 app.use("/qr-code", qrCodeRoutes);
 app.use("/req", requirementReq);
 app.use("/student", studentRoutes);
+app.use("/student-management", enrollmentStudentManagementRoute);
+app.use("/semester-management", enrollmentSemesterRoute);
+app.use("/courses", enrollmentCourseRoute);
+app.use("/sections", enrollmentSectionRoute);
 
 export default app;

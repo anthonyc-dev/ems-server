@@ -1,0 +1,23 @@
+model SectionManagement {
+  id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  sectionCode    String            @unique
+  sectionName    String
+  maxCapacity    Int
+  day            String
+  timeStart      String            // e.g. "08:00 AM"
+  timeEnd        String            // e.g. "10:00 AM"
+  room           String
+
+// Relations
+//   courseId       String
+//   course         CourseManagement  @relation(fields: [courseId], references: [id])
+
+//   semesterId     String
+//   semester       SemesterManagement @relation(fields: [semesterId], references: [id])
+
+//   instructorId   String?           // Optional instructor
+//   instructor     InstructorManagement? @relation(fields: [instructorId], references: [id])
+
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
