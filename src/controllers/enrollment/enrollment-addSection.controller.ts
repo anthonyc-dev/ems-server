@@ -19,6 +19,9 @@ export const createSection = async (
       timeStart,
       timeEnd,
       room,
+      semester,
+      instructor,
+      department,
     } = req.body;
 
     // Validate required fields
@@ -55,6 +58,9 @@ export const createSection = async (
         timeStart,
         timeEnd,
         room,
+        semester,
+        instructor,
+        department,
       },
     });
 
@@ -128,6 +134,8 @@ export const updateSection = async (
       timeStart,
       timeEnd,
       room,
+      semester,
+      instructor,
     } = req.body;
 
     const existing = await prisma.sectionManagement.findUnique({
@@ -148,6 +156,8 @@ export const updateSection = async (
         timeStart,
         timeEnd,
         room,
+        semester,
+        instructor,
       },
     });
 

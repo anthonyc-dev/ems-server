@@ -25,6 +25,7 @@ npx prisma generate --schema=./prisma/schema
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Prisma client generated successfully!" -ForegroundColor Green
+    exit 1
 } else {
     Write-Host "❌ Prisma generation failed!" -ForegroundColor Red
     exit 1

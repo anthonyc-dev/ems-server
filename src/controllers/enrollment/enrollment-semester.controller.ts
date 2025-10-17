@@ -15,6 +15,7 @@ export const createSemester = async (
       semesterType,
       semesterDuration,
       enrollmentPeriod,
+      status,
     } = req.body;
 
     // Basic validation
@@ -36,6 +37,7 @@ export const createSemester = async (
         semesterType,
         semesterDuration,
         enrollmentPeriod,
+        status,
       },
     });
 
