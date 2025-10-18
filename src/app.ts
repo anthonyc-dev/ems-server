@@ -11,10 +11,10 @@ import enrollmentStudentManagementRoute from "./routes/enrollment/enrollment-stu
 import enrollmentSemesterRoute from "./routes/enrollment/enrollment-semester.route";
 import enrollmentCourseRoute from "./routes/enrollment/enrollment-addCourse.route";
 import enrollmentSectionRoute from "./routes/enrollment/enrollment-section.route";
+import enrollmentRoutes from "./routes/enrollment/enrollment.routes";
 
 const app: Application = express();
 
-// Configure EJS view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../views"));
 
@@ -40,19 +40,21 @@ app.get("/health", (_req: Request, res: Response): void => {
   });
 });
 
-// Root route - render EJS template
 app.get("/", (_req: Request, res: Response): void => {
   res.render("index");
 });
 
-//rooutes
+//rooutes for ASCS
 app.use("/auth", clearingOfficer);
 app.use("/qr-code", qrCodeRoutes);
 app.use("/req", requirementReq);
 app.use("/student", studentRoutes);
+
+//routes for Enrollment Management System
 app.use("/student-management", enrollmentStudentManagementRoute);
 app.use("/semester-management", enrollmentSemesterRoute);
 app.use("/courses", enrollmentCourseRoute);
 app.use("/sections", enrollmentSectionRoute);
+app.use("/enroll", enrollmentRoutes);
 
 export default app;

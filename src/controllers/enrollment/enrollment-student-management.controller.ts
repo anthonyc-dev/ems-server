@@ -19,6 +19,7 @@ export const createStudent = async (req: Request, res: Response) => {
       yearLevel,
       department,
       program,
+      status,
     } = req.body;
 
     // Basic validation
@@ -41,6 +42,7 @@ export const createStudent = async (req: Request, res: Response) => {
         yearLevel,
         department,
         program,
+        status,
       },
     });
 

@@ -1,0 +1,31 @@
+// model Enrollment {
+//   id             String    @id @default(auto()) @map("_id") @db.ObjectId
+//   studentId      String    @db.ObjectId
+//   sectionId      String    @db.ObjectId
+//   semesterId     String    @db.ObjectId
+//   enrollmentDate DateTime  @default(now())
+//   status         String
+//   grade          String?
+//   remarks        String?
+//   dateCreated    DateTime  @default(now())
+//   dateUpdated    DateTime  @updatedAt
+
+//   // Relations
+//   student        StudentManagement   @relation(fields: [studentId], references: [id])
+//   section        SectionManagement   @relation(fields: [sectionId], references: [id])
+//   semester       SemesterManagement  @relation(fields: [semesterId], references: [id])
+// }
+
+
+model StudentEnrollment {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  studentNumber  String?      // optional since not provided
+  department     String
+  yearLevel      String
+  semester       String
+  academicYear   String
+  selectedCourses String[]    // list of selected courses
+  totalUnits     Int
+  createdAt      DateTime @default(now())
+}
