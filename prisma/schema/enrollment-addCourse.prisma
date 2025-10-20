@@ -9,4 +9,5 @@ model CourseManagement {
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
   
+  sections SectionManagement[]
 }

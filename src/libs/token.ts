@@ -4,7 +4,7 @@ import jwt, { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 export const cookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV !== "development",
-  sameSite: "strict" as const,
+  sameSite: "none" as const,
   path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };

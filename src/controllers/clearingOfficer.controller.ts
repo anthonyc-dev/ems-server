@@ -254,3 +254,77 @@ export const getProfile = async (
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// ----Clearing officer endpoints
+
+// Update a clearing officer
+export const updateClearingOfficer = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { schoolId, firstName, lastName, email, phoneNumber, role } =
+      req.body;
+
+    const clearingOfficer = await prisma.clearingOfficer.update({
+      where: { id },
+      data: {
+        schoolId,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        role,
+      },
+    });
+
+    res.status(200).json({
+      message: "Clearing officer updated successfully",
+      clearingOfficer,
+    });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete a clearing officer
+export const deleteClearingOfficer = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    await prisma.clearingOfficer.delete({
+      where: { id },
+    });
+
+    res.status(200).json({ message: "Clearing officer deleted successfully" });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get all clearing officer
+export const getClearingOfficers = async (req: Request, res: Response) => {
+  try {
+    const clearingOfficers = await prisma.clearingOfficer.findMany();
+    res.json(clearingOfficers);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get a clearing officer by ID
+export const getClearingOfficerById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const clearingOfficer = await prisma.clearingOfficer.findUnique({
+      where: { id },
+    });
+
+    if (!clearingOfficer) {
+      res.status(404).json({ message: "Clearing officer not found" });
+      return;
+    }
+
+    res.status(200).json({ clearingOfficer });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};

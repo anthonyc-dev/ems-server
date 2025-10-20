@@ -1,5 +1,6 @@
 model SectionManagement {
   id             String            @id @default(auto()) @map("_id") @db.ObjectId
+  courseId       String            
   sectionCode    String            @unique
   sectionName    String
   maxCapacity    Int
@@ -13,5 +14,5 @@ model SectionManagement {
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
 
-  // enrollments Enrollment[]
+  courses       CourseManagement     @relation(fields: [courseId], references: [courseCode])
 }

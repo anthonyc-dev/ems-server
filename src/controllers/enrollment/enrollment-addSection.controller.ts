@@ -22,6 +22,7 @@ export const createSection = async (
       semester,
       instructor,
       department,
+      courseId,
     } = req.body;
 
     // Validate required fields
@@ -61,6 +62,7 @@ export const createSection = async (
         semester,
         instructor,
         department,
+        courseId,
       },
     });
 
@@ -84,6 +86,7 @@ export const getAllSections = async (
   try {
     const sections = await prisma.sectionManagement.findMany({
       orderBy: { createdAt: "desc" },
+      include: { courses: true },
     });
     res.status(200).json(sections);
   } catch (error) {
