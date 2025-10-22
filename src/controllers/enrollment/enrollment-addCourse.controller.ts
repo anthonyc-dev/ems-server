@@ -17,12 +17,9 @@ export const createCourse = async (
       department,
       prerequisites,
       maxCapacity,
-      day,
-      timeStart,
-      timeEnd,
-      room,
-      instructor,
+      schedules,
       semester,
+      yearLevel,
     } = req.body;
 
     // Validation
@@ -32,11 +29,6 @@ export const createCourse = async (
       !units ||
       !department ||
       !maxCapacity ||
-      !day ||
-      !timeStart ||
-      !timeEnd ||
-      !room ||
-      !instructor ||
       !semester
     ) {
       res.status(400).json({ message: "Missing required fields" });
@@ -60,12 +52,11 @@ export const createCourse = async (
         department,
         prerequisites: prerequisites || [],
         maxCapacity,
-        day,
-        timeStart,
-        timeEnd,
-        room,
-        instructor,
+        schedules: {
+          set: schedules || [],
+        },
         semester,
+        yearLevel,
       },
     });
 
@@ -127,12 +118,9 @@ export const updateCourse = async (req: Request, res: Response) => {
       department,
       prerequisites,
       maxCapacity,
-      day,
-      timeStart,
-      timeEnd,
-      room,
-      instructor,
+      schedules,
       semester,
+      yearLevel,
     } = req.body;
 
     const course = await prisma.courses.findUnique({ where: { id } });
@@ -151,12 +139,9 @@ export const updateCourse = async (req: Request, res: Response) => {
         department,
         prerequisites: prerequisites || [],
         maxCapacity,
-        day,
-        timeStart,
-        timeEnd,
-        room,
-        instructor,
+        ...(schedules && { schedules: { set: schedules } }),
         semester,
+        yearLevel,
       },
     });
 

@@ -9,15 +9,20 @@ model Courses {
 
   // Section-specific fields
   maxCapacity     Int?
-  day             String?
-  timeStart       String?     // e.g. "08:00 AM"
-  timeEnd         String?     // e.g. "10:00 AM"
-  room            String?
-  instructor      String?
+  schedules        Schedule[]
   semester        String?
   yearLevel       String?
 
   // Timestamps
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
+}
+
+
+type Schedule {
+  day         String
+  timeStart   String
+  timeEnd     String
+  room        String
+  instructor  String
 }
