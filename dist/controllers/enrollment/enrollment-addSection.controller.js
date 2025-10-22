@@ -17,7 +17,7 @@ const prisma = new client_1.PrismaClient();
  */
 const createSection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { sectionCode, sectionName, maxCapacity, day, timeStart, timeEnd, room, } = req.body;
+        const { sectionCode, sectionName, maxCapacity, day, timeStart, timeEnd, room, semester, instructor, department, courseId, } = req.body;
         // Validate required fields
         if (!sectionCode ||
             !sectionName ||
@@ -48,6 +48,10 @@ const createSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 timeStart,
                 timeEnd,
                 room,
+                semester,
+                instructor,
+                department,
+                courseId,
             },
         });
         res.status(201).json({
@@ -104,7 +108,7 @@ exports.getSectionById = getSectionById;
 const updateSection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const { sectionCode, sectionName, maxCapacity, day, timeStart, timeEnd, room, } = req.body;
+        const { sectionCode, sectionName, maxCapacity, day, timeStart, timeEnd, room, semester, instructor, } = req.body;
         const existing = yield prisma.sectionManagement.findUnique({
             where: { id },
         });
@@ -122,6 +126,8 @@ const updateSection = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 timeStart,
                 timeEnd,
                 room,
+                semester,
+                instructor,
             },
         });
         res.status(200).json({

@@ -16,15 +16,20 @@ const enrollment_student_management_route_1 = __importDefault(require("./routes/
 const enrollment_semester_route_1 = __importDefault(require("./routes/enrollment/enrollment-semester.route"));
 const enrollment_addCourse_route_1 = __importDefault(require("./routes/enrollment/enrollment-addCourse.route"));
 const enrollment_section_route_1 = __importDefault(require("./routes/enrollment/enrollment-section.route"));
+const enrollment_routes_1 = __importDefault(require("./routes/enrollment/enrollment.routes"));
+const enrollment_auth_route_1 = __importDefault(require("./routes/enrollment/enrollment-auth.route"));
 const app = (0, express_1.default)();
-// Configure EJS view engine
 app.set("view engine", "ejs");
 app.set("views", path_1.default.join(__dirname, "../views"));
 // Middleware
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)({
-    origin: [process.env.FRONT_END_URL || "", "http://localhost:5173"],
+    origin: [
+        process.env.FRONT_END_URL || "",
+        process.env.FRONT_END_URL_2 || "",
+        "http://localhost:5173",
+    ],
     credentials: true,
 }));
 app.use(body_parser_1.default.json());
@@ -38,17 +43,19 @@ app.get("/health", (_req, res) => {
         environment: process.env.NODE_ENV || "development",
     });
 });
-// Root route - render EJS template
 app.get("/", (_req, res) => {
     res.render("index");
 });
-//rooutes
+//rooutes for ASCS
 app.use("/auth", clearingOfficer_route_1.default);
 app.use("/qr-code", qrCode_route_1.default);
 app.use("/req", requirement_route_1.default);
 app.use("/student", student_route_1.default);
+//routes for Enrollment Management System
+app.use("/enrollment-auth", enrollment_auth_route_1.default);
 app.use("/student-management", enrollment_student_management_route_1.default);
 app.use("/semester-management", enrollment_semester_route_1.default);
 app.use("/courses", enrollment_addCourse_route_1.default);
 app.use("/sections", enrollment_section_route_1.default);
+app.use("/enroll", enrollment_routes_1.default);
 exports.default = app;

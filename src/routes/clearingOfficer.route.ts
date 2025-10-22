@@ -6,9 +6,11 @@ import {
   authorizeRoles,
 } from "../middlewares/authentication";
 import {
+  addClearingOfficer,
   deleteClearingOfficer,
   getClearingOfficerById,
   getClearingOfficers,
+  getClearingOfficersInASCS,
   getProfile,
   login,
   logout,
@@ -40,24 +42,15 @@ router.post("/refresh-token", refreshToken);
 router.post("/logout", authenticateToken, logout);
 
 //--------- Clearing officer routes
-router.get("/clearing-officers", getClearingOfficers);
-router.get(
-  "/clearing-officer/:id",
-  authenticateToken,
-  authorizeRoles("admin"),
-  getClearingOfficerById
-);
-router.put(
-  "/clearing-officer/:id",
-  authenticateToken,
-  authorizeRoles("admin"),
-  updateClearingOfficer
-);
-router.delete(
-  "/clearing-officer/:id",
-  authenticateToken,
-  authorizeRoles("admin"),
-  deleteClearingOfficer
-);
+router.post("/createCo", addClearingOfficer);
+router.get("/getAllCo", getClearingOfficers);
+router.get("/getCoById/:id", getClearingOfficerById);
+router.put("/updateCo/:id", updateClearingOfficer);
+router.delete("/deleteCo/:id", deleteClearingOfficer);
+
+//---- clearing officer in ASCS----
+router.get("/getAllCoInASCS", getClearingOfficersInASCS);
 
 export default router;
+
+//

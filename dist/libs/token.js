@@ -42,7 +42,7 @@ const jsonwebtoken_1 = __importStar(require("jsonwebtoken"));
 exports.cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
+    sameSite: "none",
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
 };

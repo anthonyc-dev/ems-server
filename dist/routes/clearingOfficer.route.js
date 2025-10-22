@@ -15,4 +15,13 @@ router.get("/profile", authentication_1.authenticateToken, (0, authentication_1.
 router.post("/refresh-token", clearingOfficer_controller_1.refreshToken);
 // Logout route
 router.post("/logout", authentication_1.authenticateToken, clearingOfficer_controller_1.logout);
+//--------- Clearing officer routes
+router.post("/createCo", clearingOfficer_controller_1.addClearingOfficer);
+router.get("/getAllCo", clearingOfficer_controller_1.getClearingOfficers);
+router.get("/getCoById/:id", clearingOfficer_controller_1.getClearingOfficerById);
+router.put("/updateCo/:id", clearingOfficer_controller_1.updateClearingOfficer);
+router.delete("/deleteCo/:id", clearingOfficer_controller_1.deleteClearingOfficer);
+//---- clearing officer in ASCS----
+router.get("/getAllCoInASCS", clearingOfficer_controller_1.getClearingOfficersInASCS);
 exports.default = router;
+//

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProfile = exports.logout = exports.refreshToken = exports.login = exports.register = void 0;
+exports.getClearingOfficersInASCS = exports.getClearingOfficerById = exports.getClearingOfficers = exports.deleteClearingOfficer = exports.updateClearingOfficer = exports.addClearingOfficer = exports.getProfile = exports.logout = exports.refreshToken = exports.login = exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const token_1 = require("../libs/token");
@@ -230,3 +230,150 @@ const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getProfile = getProfile;
+// ----Clearing officer endpoints
+//add clearing officer
+const addClearingOfficer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { schoolId, firstName, lastName, email, phoneNumber, position, department, } = req.body;
+        // ✅ Validate required fields
+        if (!schoolId || !firstName || !lastName || !email || !phoneNumber) {
+            res.status(400).json({
+                message: "Missing required fields. Please provide all necessary data.",
+            });
+            return;
+        }
+        // ✅ Check if the user already exists by email or schoolId
+        const existingUser = yield prisma.clearingOfficerManagement.findFirst({
+            where: {
+                OR: [{ email }, { schoolId }],
+            },
+        });
+        if (existingUser) {
+            res.status(409).json({
+                message: "A user with that email or schoolId already exists.",
+            });
+            return;
+        }
+        // // ✅ Handle password hashing (detect bcrypt hash pattern)
+        // const bcryptHashPattern = /^\$2[aby]\$.{56}$/;
+        // const hashedPassword = bcryptHashPattern.test(password)
+        //   ? password
+        //   : await bcrypt.hash(password, 10);
+        // ✅ Create clearing officer
+        const newOfficer = yield prisma.clearingOfficerManagement.create({
+            data: {
+                schoolId,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                position: position || "N/A",
+                department: department || "N/A",
+            },
+        });
+        // ✅ Success response (exclude password)
+        res.status(201).json({
+            message: "Clearing officer created successfully.",
+            data: {
+                id: newOfficer.id,
+                schoolId: newOfficer.schoolId,
+                firstName: newOfficer.firstName,
+                lastName: newOfficer.lastName,
+                email: newOfficer.email,
+                phoneNumber: newOfficer.phoneNumber,
+                position: newOfficer.position,
+                department: newOfficer.department,
+                createdAt: newOfficer.createdAt,
+            },
+        });
+    }
+    catch (error) {
+        console.error("Error creating clearing officer:", error);
+        res.status(500).json({
+            message: "Internal server error.",
+            error: error.message || error,
+        });
+    }
+});
+exports.addClearingOfficer = addClearingOfficer;
+const updateClearingOfficer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { schoolId, firstName, lastName, email, phoneNumber, position, department, } = req.body;
+        const clearingOfficer = yield prisma.clearingOfficerManagement.update({
+            where: { id },
+            data: {
+                schoolId,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                position,
+                department,
+            },
+        });
+        res.status(200).json({
+            message: "Clearing officer updated successfully",
+            clearingOfficer,
+        });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.updateClearingOfficer = updateClearingOfficer;
+// Delete a clearing officer
+const deleteClearingOfficer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        yield prisma.clearingOfficerManagement.delete({
+            where: { id },
+        });
+        res.status(200).json({ message: "Clearing officer deleted successfully" });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.deleteClearingOfficer = deleteClearingOfficer;
+// Get all clearing officer
+const getClearingOfficers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const clearingOfficers = yield prisma.clearingOfficerManagement.findMany();
+        res.json(clearingOfficers);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.getClearingOfficers = getClearingOfficers;
+// Get a clearing officer by ID
+const getClearingOfficerById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const clearingOfficer = yield prisma.clearingOfficerManagement.findUnique({
+            where: { id },
+        });
+        if (!clearingOfficer) {
+            res.status(404).json({ message: "Clearing officer not found" });
+            return;
+        }
+        res.status(200).json({ clearingOfficer });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.getClearingOfficerById = getClearingOfficerById;
+//---- clearing officer in ASCS----
+// Get all clearing officer in ASCS
+const getClearingOfficersInASCS = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const clearingOfficers = yield prisma.clearingOfficer.findMany();
+        res.json(clearingOfficers);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.getClearingOfficersInASCS = getClearingOfficersInASCS;

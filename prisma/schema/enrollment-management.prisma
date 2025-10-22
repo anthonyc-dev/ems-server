@@ -18,14 +18,30 @@
 
 
 model StudentEnrollment {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  studentNumber  String?      // optional since not provided
-  department     String
-  yearLevel      String
-  semester       String
-  academicYear   String
-  selectedCourses String[]    // list of selected courses
-  totalUnits     Int
-  createdAt      DateTime @default(now())
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId       String                  @unique                     // school id
+  firstName      String
+  lastName       String
+  middleName     String?  
+  courseCode      String      @unique
+  courseName      String
+  description     String?
+  units           Int
+  department      String
+  prerequisites   String[]
+
+  // Section-specific fields
+  maxCapacity     Int?
+  day             String?
+  timeStart       String?     // e.g. "08:00 AM"
+  timeEnd         String?     // e.g. "10:00 AM"
+  room            String?
+  instructor      String?
+  semester        String?
+  yearLevel       String?
+  status          String?
+
+  // Timestamps
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }

@@ -16,15 +16,34 @@ export const createCourse = async (
       units,
       department,
       prerequisites,
+      maxCapacity,
+      day,
+      timeStart,
+      timeEnd,
+      room,
+      instructor,
+      semester,
     } = req.body;
 
     // Validation
-    if (!courseCode || !courseName || !units || !department) {
+    if (
+      !courseCode ||
+      !courseName ||
+      !units ||
+      !department ||
+      !maxCapacity ||
+      !day ||
+      !timeStart ||
+      !timeEnd ||
+      !room ||
+      !instructor ||
+      !semester
+    ) {
       res.status(400).json({ message: "Missing required fields" });
       return;
     }
 
-    const existingCourse = await prisma.courseManagement.findUnique({
+    const existingCourse = await prisma.courses.findUnique({
       where: { courseCode },
     });
     if (existingCourse) {
@@ -32,7 +51,7 @@ export const createCourse = async (
       return;
     }
 
-    const newCourse = await prisma.courseManagement.create({
+    const newCourse = await prisma.courses.create({
       data: {
         courseCode,
         courseName,
@@ -40,6 +59,13 @@ export const createCourse = async (
         units: Number(units),
         department,
         prerequisites: prerequisites || [],
+        maxCapacity,
+        day,
+        timeStart,
+        timeEnd,
+        room,
+        instructor,
+        semester,
       },
     });
 
@@ -56,7 +82,7 @@ export const createCourse = async (
 // ✅ Get all courses
 export const getAllCourses = async (req: Request, res: Response) => {
   try {
-    const courses = await prisma.courseManagement.findMany({
+    const courses = await prisma.courses.findMany({
       orderBy: { createdAt: "desc" },
     });
     res.status(200).json(courses);
@@ -73,7 +99,7 @@ export const getCourseById = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const course = await prisma.courseManagement.findUnique({
+    const course = await prisma.courses.findUnique({
       where: { id },
     });
 
@@ -100,15 +126,22 @@ export const updateCourse = async (req: Request, res: Response) => {
       units,
       department,
       prerequisites,
+      maxCapacity,
+      day,
+      timeStart,
+      timeEnd,
+      room,
+      instructor,
+      semester,
     } = req.body;
 
-    const course = await prisma.courseManagement.findUnique({ where: { id } });
+    const course = await prisma.courses.findUnique({ where: { id } });
     if (!course) {
       res.status(404).json({ message: "Course not found" });
       return;
     }
 
-    const updatedCourse = await prisma.courseManagement.update({
+    const updatedCourse = await prisma.courses.update({
       where: { id },
       data: {
         courseCode,
@@ -117,6 +150,13 @@ export const updateCourse = async (req: Request, res: Response) => {
         units: Number(units),
         department,
         prerequisites: prerequisites || [],
+        maxCapacity,
+        day,
+        timeStart,
+        timeEnd,
+        room,
+        instructor,
+        semester,
       },
     });
 
@@ -134,14 +174,14 @@ export const updateCourse = async (req: Request, res: Response) => {
 export const deleteCourse = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const course = await prisma.courseManagement.findUnique({ where: { id } });
+    const course = await prisma.courses.findUnique({ where: { id } });
 
     if (!course) {
       res.status(404).json({ message: "Course not found" });
       return;
     }
 
-    await prisma.courseManagement.delete({ where: { id } });
+    await prisma.courses.delete({ where: { id } });
     res.status(200).json({ message: "Course deleted successfully" });
   } catch (error) {
     console.error("Error deleting course:", error);

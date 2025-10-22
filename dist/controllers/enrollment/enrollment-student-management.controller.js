@@ -15,7 +15,7 @@ const prisma = new client_1.PrismaClient();
 // ✅ CREATE Student
 const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { schoolId, firstName, lastName, middleName, email, phone, dateOfBirth, gender, address, yearLevel, department, program, } = req.body;
+        const { schoolId, firstName, lastName, middleName, email, phone, dateOfBirth, gender, address, yearLevel, department, program, status, } = req.body;
         // Basic validation
         if (!schoolId || !firstName || !lastName || !yearLevel) {
             res.status(400).json({ message: "Missing required fields." });
@@ -35,6 +35,7 @@ const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 yearLevel,
                 department,
                 program,
+                status,
             },
         });
         res.status(201).json(newStudent);

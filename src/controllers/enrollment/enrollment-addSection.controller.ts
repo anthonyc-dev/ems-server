@@ -86,7 +86,6 @@ export const getAllSections = async (
   try {
     const sections = await prisma.sectionManagement.findMany({
       orderBy: { createdAt: "desc" },
-      include: { courses: true },
     });
     res.status(200).json(sections);
   } catch (error) {

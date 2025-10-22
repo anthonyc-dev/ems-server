@@ -15,7 +15,7 @@ const prisma = new client_1.PrismaClient();
 // ✅ CREATE a new Semester
 const createSemester = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { semesterName, academicYear, semesterType, semesterDuration, enrollmentPeriod, } = req.body;
+        const { semesterName, academicYear, semesterType, semesterDuration, enrollmentPeriod, status, } = req.body;
         // Basic validation
         if (!semesterName ||
             !academicYear ||
@@ -32,6 +32,7 @@ const createSemester = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 semesterType,
                 semesterDuration,
                 enrollmentPeriod,
+                status,
             },
         });
         res.status(201).json(newSemester);

@@ -1,0 +1,14 @@
+model ClearingOfficerManagement {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  schoolId     String   @unique
+  firstName    String
+  lastName     String
+  email        String   @unique
+  phoneNumber  String
+  department   String
+  position     String
+  password     String?
+  role         String?   @default("clearingOfficer")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

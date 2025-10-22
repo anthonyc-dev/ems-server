@@ -1,13 +1,23 @@
-model CourseManagement {
-  id              String              @id @default(auto()) @map("_id") @db.ObjectId
-  courseCode      String              @unique
+model Courses {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  courseCode      String      @unique
   courseName      String
   description     String?
   units           Int
   department      String
   prerequisites   String[]
-  createdAt       DateTime            @default(now())
-  updatedAt       DateTime            @updatedAt
-  
-  sections SectionManagement[]
+
+  // Section-specific fields
+  maxCapacity     Int?
+  day             String?
+  timeStart       String?     // e.g. "08:00 AM"
+  timeEnd         String?     // e.g. "10:00 AM"
+  room            String?
+  instructor      String?
+  semester        String?
+  yearLevel       String?
+
+  // Timestamps
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }

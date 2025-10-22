@@ -12,6 +12,7 @@ import enrollmentSemesterRoute from "./routes/enrollment/enrollment-semester.rou
 import enrollmentCourseRoute from "./routes/enrollment/enrollment-addCourse.route";
 import enrollmentSectionRoute from "./routes/enrollment/enrollment-section.route";
 import enrollmentRoutes from "./routes/enrollment/enrollment.routes";
+import enrollmentAuthRoute from "./routes/enrollment/enrollment-auth.route";
 
 const app: Application = express();
 
@@ -55,6 +56,7 @@ app.use("/req", requirementReq);
 app.use("/student", studentRoutes);
 
 //routes for Enrollment Management System
+app.use("/enrollment-auth", enrollmentAuthRoute);
 app.use("/student-management", enrollmentStudentManagementRoute);
 app.use("/semester-management", enrollmentSemesterRoute);
 app.use("/courses", enrollmentCourseRoute);

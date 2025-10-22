@@ -15,20 +15,30 @@ const prisma = new client_1.PrismaClient();
 // ✅ Create new course
 const createCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { courseCode, courseName, description, units, department, prerequisites, } = req.body;
+        const { courseCode, courseName, description, units, department, prerequisites, maxCapacity, day, timeStart, timeEnd, room, instructor, semester, } = req.body;
         // Validation
-        if (!courseCode || !courseName || !units || !department) {
+        if (!courseCode ||
+            !courseName ||
+            !units ||
+            !department ||
+            !maxCapacity ||
+            !day ||
+            !timeStart ||
+            !timeEnd ||
+            !room ||
+            !instructor ||
+            !semester) {
             res.status(400).json({ message: "Missing required fields" });
             return;
         }
-        const existingCourse = yield prisma.courseManagement.findUnique({
+        const existingCourse = yield prisma.courses.findUnique({
             where: { courseCode },
         });
         if (existingCourse) {
             res.status(400).json({ message: "Course code already exists" });
             return;
         }
-        const newCourse = yield prisma.courseManagement.create({
+        const newCourse = yield prisma.courses.create({
             data: {
                 courseCode,
                 courseName,
@@ -36,6 +46,13 @@ const createCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 units: Number(units),
                 department,
                 prerequisites: prerequisites || [],
+                maxCapacity,
+                day,
+                timeStart,
+                timeEnd,
+                room,
+                instructor,
+                semester,
             },
         });
         res.status(201).json({
@@ -52,7 +69,7 @@ exports.createCourse = createCourse;
 // ✅ Get all courses
 const getAllCourses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const courses = yield prisma.courseManagement.findMany({
+        const courses = yield prisma.courses.findMany({
             orderBy: { createdAt: "desc" },
         });
         res.status(200).json(courses);
@@ -67,7 +84,7 @@ exports.getAllCourses = getAllCourses;
 const getCourseById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const course = yield prisma.courseManagement.findUnique({
+        const course = yield prisma.courses.findUnique({
             where: { id },
         });
         if (!course) {
@@ -86,13 +103,13 @@ exports.getCourseById = getCourseById;
 const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const { courseCode, courseName, description, units, department, prerequisites, } = req.body;
-        const course = yield prisma.courseManagement.findUnique({ where: { id } });
+        const { courseCode, courseName, description, units, department, prerequisites, maxCapacity, day, timeStart, timeEnd, room, instructor, semester, } = req.body;
+        const course = yield prisma.courses.findUnique({ where: { id } });
         if (!course) {
             res.status(404).json({ message: "Course not found" });
             return;
         }
-        const updatedCourse = yield prisma.courseManagement.update({
+        const updatedCourse = yield prisma.courses.update({
             where: { id },
             data: {
                 courseCode,
@@ -101,6 +118,13 @@ const updateCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 units: Number(units),
                 department,
                 prerequisites: prerequisites || [],
+                maxCapacity,
+                day,
+                timeStart,
+                timeEnd,
+                room,
+                instructor,
+                semester,
             },
         });
         res.status(200).json({
@@ -118,12 +142,12 @@ exports.updateCourse = updateCourse;
 const deleteCourse = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const course = yield prisma.courseManagement.findUnique({ where: { id } });
+        const course = yield prisma.courses.findUnique({ where: { id } });
         if (!course) {
             res.status(404).json({ message: "Course not found" });
             return;
         }
-        yield prisma.courseManagement.delete({ where: { id } });
+        yield prisma.courses.delete({ where: { id } });
         res.status(200).json({ message: "Course deleted successfully" });
     }
     catch (error) {
