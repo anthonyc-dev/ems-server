@@ -27,6 +27,7 @@ app.use(
     origin: [
       process.env.FRONT_END_URL || "",
       process.env.FRONT_END_URL_2 || "",
+      process.env.FRONT_END_URL_3 || "",
       "http://localhost:5173",
     ],
     credentials: true,
