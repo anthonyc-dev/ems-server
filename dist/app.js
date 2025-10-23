@@ -8,16 +8,13 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const path_1 = __importDefault(require("path"));
-const clearingOfficer_route_1 = __importDefault(require("./routes/clearingOfficer.route"));
-const qrCode_route_1 = __importDefault(require("./routes/qrCode.route"));
-const requirement_route_1 = __importDefault(require("./routes/requirement.route"));
-const student_route_1 = __importDefault(require("./routes/student.route"));
 const enrollment_student_management_route_1 = __importDefault(require("./routes/enrollment/enrollment-student-management.route"));
 const enrollment_semester_route_1 = __importDefault(require("./routes/enrollment/enrollment-semester.route"));
 const enrollment_addCourse_route_1 = __importDefault(require("./routes/enrollment/enrollment-addCourse.route"));
 const enrollment_section_route_1 = __importDefault(require("./routes/enrollment/enrollment-section.route"));
 const enrollment_routes_1 = __importDefault(require("./routes/enrollment/enrollment.routes"));
 const enrollment_auth_route_1 = __importDefault(require("./routes/enrollment/enrollment-auth.route"));
+const enrollment_co_route_1 = __importDefault(require("./routes/enrollment/enrollment-co.route"));
 const app = (0, express_1.default)();
 app.set("view engine", "ejs");
 app.set("views", path_1.default.join(__dirname, "../views"));
@@ -28,6 +25,8 @@ app.use((0, cors_1.default)({
     origin: [
         process.env.FRONT_END_URL || "",
         process.env.FRONT_END_URL_2 || "",
+        process.env.FRONT_END_URL_3 || "",
+        process.env.FRONT_END_URL_4 || "",
         "http://localhost:5173",
     ],
     credentials: true,
@@ -46,11 +45,6 @@ app.get("/health", (_req, res) => {
 app.get("/", (_req, res) => {
     res.render("index");
 });
-//rooutes for ASCS
-app.use("/auth", clearingOfficer_route_1.default);
-app.use("/qr-code", qrCode_route_1.default);
-app.use("/req", requirement_route_1.default);
-app.use("/student", student_route_1.default);
 //routes for Enrollment Management System
 app.use("/enrollment-auth", enrollment_auth_route_1.default);
 app.use("/student-management", enrollment_student_management_route_1.default);
@@ -58,4 +52,5 @@ app.use("/semester-management", enrollment_semester_route_1.default);
 app.use("/courses", enrollment_addCourse_route_1.default);
 app.use("/sections", enrollment_section_route_1.default);
 app.use("/enroll", enrollment_routes_1.default);
+app.use("/co", enrollment_co_route_1.default);
 exports.default = app;
