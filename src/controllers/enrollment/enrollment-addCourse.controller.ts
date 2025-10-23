@@ -14,7 +14,7 @@ export const createCourse = async (
       courseName,
       description,
       units,
-      department,
+      departments,
       prerequisites,
       maxCapacity,
       schedules,
@@ -27,7 +27,7 @@ export const createCourse = async (
       !courseCode ||
       !courseName ||
       !units ||
-      !department ||
+      !departments ||
       !maxCapacity ||
       !semester
     ) {
@@ -49,7 +49,7 @@ export const createCourse = async (
         courseName,
         description,
         units: Number(units),
-        department,
+        departments: departments || [],
         prerequisites: prerequisites || [],
         maxCapacity,
         schedules: {
@@ -115,7 +115,7 @@ export const updateCourse = async (req: Request, res: Response) => {
       courseName,
       description,
       units,
-      department,
+      departments,
       prerequisites,
       maxCapacity,
       schedules,
@@ -136,7 +136,7 @@ export const updateCourse = async (req: Request, res: Response) => {
         courseName,
         description,
         units: Number(units),
-        department,
+        departments: departments || [],
         prerequisites: prerequisites || [],
         maxCapacity,
         ...(schedules && { schedules: { set: schedules } }),

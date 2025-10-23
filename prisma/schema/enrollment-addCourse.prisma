@@ -4,7 +4,7 @@ model Courses {
   courseName      String
   description     String?
   units           Int
-  department      String
+  departments      String[]
   prerequisites   String[]
 
   // Section-specific fields
