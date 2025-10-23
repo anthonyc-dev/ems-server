@@ -1,249 +1,144 @@
-# 🔐 Token Based Authentecation Template API (Express + Prisma + JWT)
+# EMS Server
 
-A robust and secure authentication backend built with **Node.js**, **Express**, **Prisma**, and **JWT**.  
-This template supports modern authentication flows with **access/refresh tokens**, **role-based authorization**, and **secure session handling** via cookies.
+A concise, up-to-date README for the "ems-server" backend.
 
----
+> Short description
+>
+> One or two sentences describing what this server does. Replace "EMS" with your project's full name (for example: Emergency Management System, Employee Management System, Event Management System, etc.) and explain the server's role (API, data store, auth, etc.).
 
-## 📂 Project Structure
+## Table of contents
 
-```text
-auth-templete/
-├── controllers/        # Logic for auth endpoints (login, register, etc.)
-├── middlewares/        # JWT verification and role-based protection
-├── prisma/             # Prisma schema and migration files
-│   ├── schema.prisma
-│   └── ...
-├── routes/             # All route definitions
-├── utils/              # Token generation and helper functions
-├── .env                # Environment variables
-├── app.ts              # Express app entry point
-├── index.ts            # Run server in application
-├── package.json
-└── tsconfig.jsonn
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Environment variables](#environment-variables)
+  - [Install and run (local)](#install-and-run-local)
+  - [Run with Docker](#run-with-docker)
+- [Configuration](#configuration)
+- [API Documentation](#api-documentation)
+- [Database migrations](#database-migrations)
+- [Testing](#testing)
+- [Development tips](#development-tips)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Features
+
+- REST (or GraphQL) API for EMS core domain.
+- Authentication & authorization (JWT/OAuth2/etc.) — modify as appropriate.
+- Input validation and error handling.
+- Logging and request tracing.
+- Health checks and metrics endpoints.
+
+## Tech stack
+
+- Language: (e.g., Node.js, TypeScript, Go, Python) — replace with actual language(s).
+- Web framework: (e.g., Express, Fastify, Gin, Django).
+- Database: (e.g., PostgreSQL, MySQL, MongoDB).
+- Optional: Redis for caching, Docker for containerization.
+
+## Getting started
+
+### Prerequisites
+
+- Git
+- Node.js >= XX (or Go >= 1.XX, Python >= 3.X) — adjust as needed
+- Database server (Postgres/MySQL/etc.)
+- Docker & Docker Compose (optional, for containerized dev)
+
+### Environment variables
+
+Create a `.env` file at the project root or supply env vars through your process manager.
+
+Example `.env`:
+
+```
+DATABASE_URL=postgres://user:password@localhost:5432/ems_db
+PORT=3000
+JWT_SECRET=replace_with_a_long_random_secret
+NODE_ENV=development
+LOG_LEVEL=info
 ```
 
-## 🚀 Features
+### Install and run (local)
 
-- 🔑 JWT Authentication (Access & Refresh Tokens)
-- 🔐 Protected Routes
-- 🔄 Secure Token Refresh with `HttpOnly` cookies
-- 🔓 Logout with Refresh Token Revocation
-- 🧰 Prisma ORM (fully typed) with PostgreSQL or other DBs
-- 🌐 CORS & Cookie Management Configured for Web Clients
-- 🛡️ Written in Modern TypeScript
+1. Clone the repo
+   - git clone https://github.com/YOUR_ORG/ems-server.git
+   - cd ems-server
+2. Install dependencies
+   - For Node.js: `npm install` or `yarn install`
+   - For Go: `go mod download`
+3. Run database migrations (see [Database migrations](#database-migrations))
+4. Start server
+   - Node: `npm run dev` or `npm start`
+   - Go: `go run ./cmd/server` (replace with your start command)
 
-## 🛠 Tech Stack
+### Run with Docker
 
-- **Node.js** + **Express.js**
-- **Prisma** ORM
-- **TypeScript**
-- **MongoDB Atlas** (or other databases supported by Prisma)
-- **JWT** (`jsonwebtoken`)
-- **bcryptjs**
-- **cookie-parser**
-- **dotenv**
+1. Build and run the containers:
+   - `docker-compose up --build`
+2. The API will be available at `http://localhost:{{PORT}}` (replace with configured port).
 
-## ⚙️ Getting Started
+## Configuration
 
-### 1. Clone the Repository
+Document any runtime configuration options here:
 
-```bash
-git clone https://github.com/HardUsername-123/auth-templete.git
-cd auth-templete
-```
+- PORT: server port
+- DATABASE_URL: database connection string
+- JWT_SECRET: secret key for signing tokens
+- REDIS_URL: (if used)
+- EXTERNAL_API_KEY: (if used)
 
----
+## API Documentation
 
-### 2. Install Dependencies
+Document your main endpoints and authentication method here, or link to generated docs (Swagger/OpenAPI/Redoc).
 
-```bash
-npm install
-```
+Example endpoints:
 
----
+- POST /auth/login — authenticate and receive token
+- GET /users — list users (auth required)
+- POST /incidents — create an incident
+- GET /incidents/:id — get incident details
 
-### 3. Create `.env` File
+If you use OpenAPI/Swagger, add a link or instructions to view the specs:
 
-```env
-DATABASE_URI=your_mongodb_uri_here
-JWT_SECRET=your_jwt_secret_here
-JWT_REFRESH_SECRET=your_refresh_secret_here
-NODE_ENV=development or production
-PORT=your_port
-```
+- Swagger UI: `http://localhost:{{PORT}}/docs` (if enabled)
 
----
+## Database migrations
 
-### 4. Set Up Prisma
+Explain how to run migrations:
 
-Generate the client and migrate the initial schema:
+- Using a tool such as Flyway, Knex, TypeORM, Gorm, or Alembic.
+- Example:
+  - `npm run migrate` or `npx knex migrate:latest`
+  - `go run ./cmd/migrate` (replace with your migration command)
 
-```bash
-npx prisma migrate dev --name init
-npx prisma generate
-```
+## Testing
 
----
+- Unit tests: `npm test` or `go test ./...`
+- Integration tests: instructions to run with a test DB or docker-compose test services
+- Add notes for mocking, fixtures, or using a test runner.
 
-### 5. Start the Server
+## Development tips
 
-```bash
-npm run dev
-```
+- Linting: `npm run lint`
+- Formatting: `npm run format` (Prettier/Go fmt)
+- Hot reload: `npm run dev` (nodemon, air, or similar)
+- Debugging: instructions for attaching debugger in your IDE
 
-Server will run at `http://localhost:your_port`
+## Contributing
 
----
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit changes: `git commit -m "feat: describe your change"`
+4. Push branch: `git push origin feat/your-feature`
+5. Open a Pull Request describing your change and linking any relevant issue.
 
-## 📬 API Endpoints
+Follow the repository's code style and tests should pass before requesting review.
 
-| Method | Endpoint              | Description                      |
-| ------ | --------------------- | -------------------------------- |
-| POST   | `/auth/register`      | Register a new user              |
-| POST   | `/auth/login`         | Authenticate user, return tokens |
-| POST   | `/auth/refresh-token` | Refresh access token via cookie  |
-| POST   | `/auth/logout`        | Invalidate refresh token         |
-| GET    | `/auth/getProfile`    | Get Profile (requires token)     |
+## License
 
----
-
-## 📫 API Testing with `request.rest`
-
-This project includes a [`request.rest`](./request.rest) file to make API testing quick and simple using the **REST Client** extension in VS Code.
-
-### ✅ Setup
-
-1. **Install REST Client Extension**
-   In VS Code, install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension.
-
-2. **Start Your Server**
-   Make sure your server is running:
-
-   ```bash
-   npm run dev
-   ```
-
-3. **Open `request.rest` File**
-   Located at the root of this project.
-
-4. **Click "Send Request"**
-   Hover over any `###` request header and click `Send Request`. You'll get the response right inside VS Code.
-
-### 🔧 Sample Endpoints
-
-```http
-###Register
-POST http://localhost:8080/auth/register
-Content-Type: application/json
-
-{
-    "studentId": "22222",
-    "firstName": "hamdan",
-    "lastName": "Cawasa",
-    "email": "cawasa1@gmail.com",
-    "phoneNumber": "1234567890",
-    "password": "Cawasa@123",
-    "role": "admin"
-}
-
-###Login
-POST http://localhost:8080/auth/login
-Content-Type: application/json
-
-{
-    "email": "anthony.dev@gmail.com",
-    "password": "Anthony@123"
-}
-
-###Log out
-POST http://localhost:8080/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjExNzM5NiwiZXhwIjoxNzUyMTE3NDExfQ.MLMJ4QXM5sHmgBMLTXxgHYxn1oKAhvL4p_u2pccQd04
-
-###Access Token
-GET http://localhost:8080/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjEwODAwMCwiZXhwIjoxNzUyMTA4MDE1fQ.jpA4NlNlA0tiSZucMmo5MvGmzEacbHOMYkMjyNjABaE
-
-###Refresh Token
-POST http://localhost:8080/auth/refresh-token
-Content-Type: application/json
-
-{
-    "refreshToken":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJpYXQiOjE3NTIxMTI3NTgsImV4cCI6MTc1MjcxNzU1OH0.aLbph0fsPvIywj3qHR8MP1V27O0IybO8inSSoSBl6kA"
-}
-
-###Profile
-GET http://localhost:8080/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZmMDlmYzI4YTk5MTVkNThmYTc3Y2QiLCJlbWFpbCI6ImFudGhvbnkuZGV2QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MjExMjc3OSwiZXhwIjoxNzUyMTEyNzk0fQ.q_XNviqj0PZlyBR7m7aoS4t3ceBavQqJGB049C_yTWw
-```
-
----
-
-## 🔐 Authentication Flow
-
-1. **Login** via `/auth/login`
-
-   - Server issues `accessToken` and sets `refreshToken` in `HttpOnly` cookie.
-
-2. **Access getProfile routes** by passing:
-
-   ```http
-   Authorization: Bearer <accessToken>
-   ```
-
-3. When the access token expires:
-
-   - Client silently sends request to `/auth/refresh-token` to obtain a new one.
-
-4. **Logout** by calling `/auth/logout`, which clears the cookie.
-
----
-
-## 🧠 Prisma Model Example
-
-```prisma
-model AuthenticatedUser {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  studentId String   @unique
-  firstName String
-  lastName  String
-  email     String   @unique
-  phoneNumber String
-  password  String
-  role      String
-  refreshToken String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-```
-
----
-
-## 🔄 Token Refresh (HttpOnly Cookies)
-
-- Refresh token is stored securely as a `HttpOnly` cookie.
-- Automatically included by the browser in requests.
-- Refresh endpoint issues a new `accessToken`.
-
----
-
-## 🔓 Logout
-
-```http
-POST /auth/logout
-```
-
-- Clears the cookie
-- Invalidates the session
-
----
-
-## 👨‍💻 Author
-
-Built with ❤️ by [anthonyc-dev](https://github.com/anthonyc-dev)
-
----
-
-## Credits
-
-- Developed by **[Anthony Crausus](https://github.com/anthonyc-dev)**
+Specify the project license, e.g.:
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
