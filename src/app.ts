@@ -3,16 +3,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import path from "path";
-import clearingOfficer from "./routes/clearingOfficer.route";
-import qrCodeRoutes from "./routes/qrCode.route";
-import requirementReq from "./routes/requirement.route";
-import studentRoutes from "./routes/student.route";
 import enrollmentStudentManagementRoute from "./routes/enrollment/enrollment-student-management.route";
 import enrollmentSemesterRoute from "./routes/enrollment/enrollment-semester.route";
 import enrollmentCourseRoute from "./routes/enrollment/enrollment-addCourse.route";
 import enrollmentSectionRoute from "./routes/enrollment/enrollment-section.route";
 import enrollmentRoutes from "./routes/enrollment/enrollment.routes";
 import enrollmentAuthRoute from "./routes/enrollment/enrollment-auth.route";
+import enrollmentCoManagement from "./routes/enrollment/enrollment-co.route";
 
 const app: Application = express();
 
@@ -51,12 +48,6 @@ app.get("/", (_req: Request, res: Response): void => {
   res.render("index");
 });
 
-//rooutes for ASCS
-app.use("/auth", clearingOfficer);
-app.use("/qr-code", qrCodeRoutes);
-app.use("/req", requirementReq);
-app.use("/student", studentRoutes);
-
 //routes for Enrollment Management System
 app.use("/enrollment-auth", enrollmentAuthRoute);
 app.use("/student-management", enrollmentStudentManagementRoute);
@@ -64,5 +55,6 @@ app.use("/semester-management", enrollmentSemesterRoute);
 app.use("/courses", enrollmentCourseRoute);
 app.use("/sections", enrollmentSectionRoute);
 app.use("/enroll", enrollmentRoutes);
+app.use("/co", enrollmentCoManagement);
 
 export default app;
