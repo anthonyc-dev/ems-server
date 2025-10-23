@@ -1,9 +1,5 @@
 # EMS Server
 
-A concise, up-to-date README for the "ems-server" backend.
-
-> Short description
->
 > One or two sentences describing what this server does. Replace "EMS" with your project's full name (for example: Emergency Management System, Employee Management System, Event Management System, etc.) and explain the server's role (API, data store, auth, etc.).
 
 ## Table of contents
