@@ -7,7 +7,11 @@ export interface User {
   password: string;
 }
 
-const users: User[] = [{ id: 1, email: "admin@admin.com", password: "12345" }];
+const users: User[] = [
+  { id: 1, email: "admin@admin.com", password: "12345" },
+  { id: 2, email: "admin2@admin.com", password: "12345" },
+  { id: 3, email: "admin3@admin.com", password: "12345" },
+];
 
 export const login = (req: Request, res: Response) => {
   const { email, password } = req.body;
