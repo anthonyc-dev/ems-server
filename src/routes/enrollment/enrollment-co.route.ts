@@ -7,16 +7,15 @@ import {
   getClearingOfficers,
   updateClearingOfficer,
 } from "../../controllers/enrollment/enrollment-co.controller";
-import { authenticateToken } from "../../middlewares/authentication";
 
 const router = Router();
 
 //--------- Clearing officer routes
-router.post("/createCo", authenticateToken, addClearingOfficer);
-router.get("/getAllCo", authenticateToken, getClearingOfficers);
-router.get("/getCoById/:id", authenticateToken, getClearingOfficerById);
-router.put("/updateCo/:id", authenticateToken, updateClearingOfficer);
-router.delete("/deleteCo/:id", authenticateToken, deleteClearingOfficer);
+router.post("/createCo", addClearingOfficer);
+router.get("/getAllCo", getClearingOfficers);
+router.get("/getCoById/:id", getClearingOfficerById);
+router.put("/updateCo/:id", updateClearingOfficer);
+router.delete("/deleteCo/:id", deleteClearingOfficer);
 
 //-------intigration api
 router.get("/getCoBySchoolId/:schoolId", getClearingOfficerBySchoolId);

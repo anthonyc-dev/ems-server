@@ -6,14 +6,12 @@ import {
   getStudentById,
   updateStudent,
 } from "../../controllers/enrollment/enrollment-student-management.controller";
-import { authenticateToken } from "../../middlewares/authentication";
-
 const router = express.Router();
 
-router.post("/createStudent", authenticateToken, createStudent);
-router.get("/getAllStudents", authenticateToken, getAllStudents);
-router.get("/getStudentById/:id", authenticateToken, getStudentById);
-router.put("/updateStudent/:id", authenticateToken, updateStudent);
-router.delete("/deleteStudent/:id", authenticateToken, deleteStudent);
+router.post("/createStudent", createStudent);
+router.get("/getAllStudents", getAllStudents);
+router.get("/getStudentById/:id", getStudentById);
+router.put("/updateStudent/:id", updateStudent);
+router.delete("/deleteStudent/:id", deleteStudent);
 
 export default router;

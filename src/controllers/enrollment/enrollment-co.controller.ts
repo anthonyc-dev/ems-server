@@ -159,7 +159,7 @@ export const getClearingOfficerById = async (req: Request, res: Response) => {
   }
 };
 
-// Get a intigration clearing officer by ID
+//--- Intigration api // Get a intigration clearing officer by ID
 export const getClearingOfficerBySchoolId = async (
   req: Request,
   res: Response

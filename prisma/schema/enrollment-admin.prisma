@@ -1,0 +1,8 @@
+model Admim {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  password     String
+  refreshToken String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

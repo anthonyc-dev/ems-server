@@ -39,6 +39,7 @@ export const createCourse = async (
       where: {
         courseCode,
         courseName,
+        semester,
       },
     });
 
