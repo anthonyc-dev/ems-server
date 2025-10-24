@@ -28,7 +28,7 @@ export const login = (req: Request, res: Response) => {
     { expiresIn: "15m" }
   );
   const refreshToken = jwt.sign(
-    { id: user.id },
+    { id: user.id, email: user.email },
     process.env.JWT_REFRESH_SECRET!,
     {
       expiresIn: "7d",
