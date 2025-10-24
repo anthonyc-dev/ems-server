@@ -35,11 +35,15 @@ export const createCourse = async (
       return;
     }
 
-    const existingCourse = await prisma.courses.findUnique({
-      where: { courseCode },
+    const existingCourse = await prisma.courses.findFirst({
+      where: {
+        courseCode,
+        courseName,
+      },
     });
+
     if (existingCourse) {
-      res.status(400).json({ message: "Course code already exists" });
+      res.status(400).json({ message: "Course already exists" });
       return;
     }
 
