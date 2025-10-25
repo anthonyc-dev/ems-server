@@ -10,6 +10,7 @@ import enrollmentSectionRoute from "./routes/enrollment/enrollment-section.route
 import enrollmentRoutes from "./routes/enrollment/enrollment.routes";
 import enrollmentAuthRoute from "./routes/enrollment/enrollment-auth.route";
 import enrollmentCoManagement from "./routes/enrollment/enrollment-co.route";
+import intigrationRoute from "./routes/enrollment/intigration.route";
 
 const app: Application = express();
 
@@ -56,5 +57,8 @@ app.use("/courses", enrollmentCourseRoute);
 app.use("/sections", enrollmentSectionRoute);
 app.use("/enroll", enrollmentRoutes);
 app.use("/co", enrollmentCoManagement);
+
+//intigration ap
+app.use("/intigration", intigrationRoute);
 
 export default app;

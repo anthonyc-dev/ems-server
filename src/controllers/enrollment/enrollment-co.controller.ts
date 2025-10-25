@@ -158,25 +158,3 @@ export const getClearingOfficerById = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-//--- Intigration api // Get a intigration clearing officer by ID
-export const getClearingOfficerBySchoolId = async (
-  req: Request,
-  res: Response
-) => {
-  try {
-    const { schoolId } = req.params;
-    const clearingOfficer = await prisma.clearingOfficerManagement.findUnique({
-      where: { schoolId },
-    });
-
-    if (!clearingOfficer) {
-      res.status(404).json({ message: "Clearing officer not found" });
-      return;
-    }
-
-    res.status(200).json({ clearingOfficer });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
