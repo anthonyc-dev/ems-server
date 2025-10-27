@@ -107,3 +107,90 @@ export const getCoursesBySchoolId = async (req: Request, res: Response) => {
     return;
   }
 };
+
+export const getAllstudentSpecificSubject = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { courseCode } = req.params;
+
+    if (!courseCode) {
+      res.status(400).json({ message: "Course code parameter is required" });
+      return;
+    }
+
+    // Find enrollments where courseCode matches OR prerequisites array contains it
+    const enrollments = await prisma.studentEnrollment.findMany({
+      where: {
+        OR: [{ prerequisites: { has: courseCode } }],
+      },
+    });
+
+    if (enrollments.length === 0) {
+      res.status(404).json({
+        message: `No students found enrolled in or requiring the subject '${courseCode}'`,
+      });
+      return;
+    }
+
+    res.status(200).json(enrollments);
+  } catch (err: any) {
+    console.error("Error fetching students by subject:", err);
+    res.status(500).json({
+      message: "Internal server error",
+      error: err.message,
+    });
+    return;
+  }
+};
+
+export const getAllStudentBySchoolId = async (req: Request, res: Response) => {
+  try {
+    const { schoolId } = req.params;
+
+    if (!schoolId) {
+      res.status(400).json({
+        success: false,
+        message: "School ID parameter is required.",
+      });
+      return;
+    }
+
+    const students = await prisma.studentManagement.findMany({
+      where: { schoolId },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        schoolId: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        yearLevel: true,
+        // department: true,
+      },
+    });
+
+    if (students.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: `No students found for school ID '${schoolId}'.`,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      count: students.length,
+      data: students,
+    });
+  } catch (error: any) {
+    console.error("❌ Error fetching students by schoolId:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+      error: error.message,
+    });
+  }
+};
