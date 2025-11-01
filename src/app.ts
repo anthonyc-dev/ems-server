@@ -28,6 +28,7 @@ app.use(
       process.env.FRONT_END_URL_3 || "",
       process.env.FRONT_END_URL_4 || "",
       "http://localhost:5173",
+      "http://localhost:2000",
     ],
     credentials: true,
   })

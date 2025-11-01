@@ -17,7 +17,7 @@ router.get(
 );
 router.get(
   "/getCoursesBySchoolId/:schoolId",
-  authenticateToken,
+
   getCoursesBySchoolId
 );
 

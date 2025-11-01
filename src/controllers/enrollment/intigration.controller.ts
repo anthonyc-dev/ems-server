@@ -168,7 +168,7 @@ export const getAllStudentBySchoolId = async (req: Request, res: Response) => {
         email: true,
         phone: true,
         yearLevel: true,
-        // department: true,
+        department: true,
       },
     });
 
