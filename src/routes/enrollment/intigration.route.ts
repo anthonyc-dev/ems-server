@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getAllEnrollmentStudents,
   getAllStudentBySchoolId,
   getAllstudentSpecificSubject,
   getClearingOfficerBySchoolId,
@@ -28,5 +29,7 @@ router.get(
 );
 
 router.get("/getAllStudentBySchoolId/:schoolId", getAllStudentBySchoolId);
+
+router.get("/getAllStudentComparedByIds", getAllEnrollmentStudents);
 
 export default router;

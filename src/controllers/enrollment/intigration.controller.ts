@@ -194,3 +194,66 @@ export const getAllStudentBySchoolId = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getAllEnrollmentStudents = async (req: Request, res: Response) => {
+  try {
+    // Fetch all enrollments
+    const enrollments = await prisma.studentEnrollment.findMany({
+      select: {
+        id: true,
+        schoolId: true,
+      },
+    });
+
+    if (enrollments.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "No enrollments found.",
+      });
+      return;
+    }
+
+    // Collect all unique student IDs from enrollments
+    const schoolIds = enrollments.map((enrollment) => enrollment.schoolId);
+
+    // Fetch all students whose IDs are in the enrollments
+    const enrolledStudents = await prisma.studentManagement.findMany({
+      where: {
+        schoolId: {
+          in: schoolIds,
+        },
+      },
+      select: {
+        id: true,
+        schoolId: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        phone: true,
+        yearLevel: true,
+        department: true,
+      },
+    });
+
+    if (enrolledStudents.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "No students found for the current enrollments.",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      count: enrolledStudents.length,
+      data: enrolledStudents,
+    });
+  } catch (error: any) {
+    console.error("❌ Error fetching enrolled students:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+      error: error.message,
+    });
+  }
+};
