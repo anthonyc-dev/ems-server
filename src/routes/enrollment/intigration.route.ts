@@ -6,25 +6,15 @@ import {
   getClearingOfficerBySchoolId,
   getCoursesBySchoolId,
 } from "../../controllers/enrollment/intigration.controller";
-import { authenticateToken } from "../../middlewares/authentication";
 
 const router = express.Router();
 
 //-------intigration api
-router.get(
-  "/getCoBySchoolId/:schoolId",
-  authenticateToken,
-  getClearingOfficerBySchoolId
-);
-router.get(
-  "/getCoursesBySchoolId/:schoolId",
-
-  getCoursesBySchoolId
-);
+router.get("/getCoBySchoolId/:schoolId", getClearingOfficerBySchoolId);
+router.get("/getCoursesBySchoolId/:schoolId", getCoursesBySchoolId);
 
 router.get(
   "/getAllstudentSpecificSubject/:courseCode",
-
   getAllstudentSpecificSubject
 );
 
