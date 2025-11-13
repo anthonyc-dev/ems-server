@@ -5,6 +5,7 @@ import {
   getAllstudentSpecificSubject,
   getClearingOfficerBySchoolId,
   getCoursesBySchoolId,
+  getStudentBySchoolId,
 } from "../../controllers/enrollment/intigration.controller";
 
 const router = express.Router();
@@ -21,5 +22,8 @@ router.get(
 router.get("/getAllStudentBySchoolId/:schoolId", getAllStudentBySchoolId);
 
 router.get("/getAllStudentComparedByIds", getAllEnrollmentStudents);
+
+//student route
+router.get("/getStudentBySchoolId/:schoolId", getStudentBySchoolId);
 
 export default router;

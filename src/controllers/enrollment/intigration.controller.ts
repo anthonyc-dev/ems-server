@@ -257,3 +257,22 @@ export const getAllEnrollmentStudents = async (req: Request, res: Response) => {
     });
   }
 };
+
+//student side
+export const getStudentBySchoolId = async (req: Request, res: Response) => {
+  try {
+    const { schoolId } = req.params;
+    const student = await prisma.studentManagement.findUnique({
+      where: { schoolId },
+    });
+
+    if (!student) {
+      res.status(404).json({ message: "Student not found" });
+      return;
+    }
+
+    res.status(200).json({ student });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
