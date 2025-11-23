@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllEnrollmentStudents,
   getAllStudentBySchoolId,
+  getAllStudentsByDepartment,
   getAllstudentSpecificSubject,
   getClearingOfficerBySchoolId,
   getCoursesBySchoolId,
@@ -25,5 +26,11 @@ router.get("/getAllStudentComparedByIds", getAllEnrollmentStudents);
 
 //student route
 router.get("/getStudentBySchoolId/:schoolId", getStudentBySchoolId);
+
+//dean
+router.get(
+  "/getAllStudentsByDepartment/:department",
+  getAllStudentsByDepartment
+);
 
 export default router;

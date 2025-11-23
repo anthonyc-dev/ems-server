@@ -276,3 +276,78 @@ export const getStudentBySchoolId = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//--------dean-----------------//
+/**
+ * Controller to fetch all students in a specific department from StudentEnrollment.
+ *
+ * Endpoint: GET /api/enrollment/getAllStudentsByDepartment/:department
+ * Example response:
+ *  {
+ *    "department": "Engineering",
+ *    "students": [ ... ],
+ *    "total": 10
+ *  }
+ */
+export const getAllStudentsByDepartment = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { department } = req.params;
+
+    if (!department || department.trim() === "") {
+      res.status(400).json({
+        success: false,
+        message: "Department parameter is required.",
+      });
+      return;
+    }
+
+    // Fetch students by department from StudentEnrollment
+    const students = await prisma.studentEnrollment.findMany({
+      where: {
+        department: department,
+      },
+      select: {
+        id: true,
+        schoolId: true,
+        firstName: true,
+        lastName: true,
+        middleName: true,
+        courseCode: true,
+        courseName: true,
+        department: true,
+        status: true,
+        yearLevel: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    if (!students || students.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: `No student enrollments found for department '${department}'.`,
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      department: department,
+      total: students.length,
+      students,
+    });
+  } catch (error: any) {
+    console.error("❌ Error fetching students by department:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+      error: error.message,
+    });
+  }
+};
